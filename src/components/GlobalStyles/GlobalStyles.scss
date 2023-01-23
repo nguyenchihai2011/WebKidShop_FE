@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@200;300;500;600&display=swap');
 
 :root {
+    --font-family: 'IBM Plex Sans', sans-serif;
+    --primary-color: #79bd9a;
+    --white: #fff;
 }
 
 * {
@@ -19,4 +22,19 @@ body {
     font-size: 1.6rem;
     line-height: 1.5rem;
     text-rendering: optimizeSpeed;
+}
+
+button,
+a {
+    text-decoration: none;
+    border: none;
+
+    &:hover {
+        color: unset;
+    }
+}
+
+input {
+    border: none;
+    outline: none;
 }
