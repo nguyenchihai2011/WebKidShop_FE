@@ -1,0 +1,27 @@
+.normal-product {
+    padding: 0;
+    background-color: #fff;
+    text-transform: none;
+}
+
+.product-img {
+    height: 190px;
+}
+
+.product-info {
+}
+
+.product-price {
+    font-size: 1.6rem;
+    color: var(--sub-color);
+}
+.product-title {
+    font-size: 1.4rem;
+    color: #000;
+    height: 60px;
+    padding: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-transform: capitalize;
+}

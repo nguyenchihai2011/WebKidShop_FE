@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './OnlyHeader.module.scss';
 
 import Header from '../components/Header/Header';
+import Home from '../../pages/Home';
+import Footer from '../components/Footer/Footer';
 
 const cx = classNames.bind(styles);
 
@@ -10,8 +12,9 @@ function OnlyHeader() {
         <div className={cx('wrapper')}>
             <Header />
             <div className={cx('content')}>
-                <div className={cx('banner')}></div>
+                <Home />
             </div>
+            <Footer />
         </div>
     );
 }
