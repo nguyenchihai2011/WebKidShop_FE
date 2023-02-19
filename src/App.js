@@ -19,7 +19,7 @@ function App() {
                                 key={index}
                                 path={route.path}
                                 element={
-                                    <Layout>
+                                    <Layout page={route.page}>
                                         <Page />
                                     </Layout>
                                 }
