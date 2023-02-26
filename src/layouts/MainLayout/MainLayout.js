@@ -5,21 +5,27 @@ import Col from 'react-bootstrap/Col';
 
 import Header from '../components/Header/Header.js';
 import Nav from '../components/Nav/Nav.js';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb.js';
+import Footer from '../components/Footer/Footer.js';
 
-function MainLayout({ children }) {
+import classNames from 'classnames/bind';
+import styles from './MainLayout.module.scss';
+
+const cx = classNames.bind(styles);
+function MainLayout({ page, children }) {
     return (
         <div className="wrapper">
             <Header />
             <Container>
-                <div className="content">
-                    <Row>
-                        <Col lg="4">
-                            <Nav />
-                        </Col>
-                        <Col lg="8">{children}</Col>
-                    </Row>
-                </div>
+                <Breadcrumb page={page} />
+                <Row className={cx('content')}>
+                    <Col lg="4">
+                        <Nav />
+                    </Col>
+                    <Col lg="8">{children}</Col>
+                </Row>
             </Container>
+            <Footer />
         </div>
     );
 }

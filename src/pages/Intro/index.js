@@ -1,5 +1,7 @@
+import Content from './Content/Content';
+
 function Intro() {
-    return <div>Intro</div>;
+    return <Content />;
 }
 
 export default Intro;
