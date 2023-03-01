@@ -1,0 +1,17 @@
+.pagination {
+    margin-top: 60px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.pagination-item {
+    font-size: 1.4rem;
+    color: #686868;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.active {
+    color: #fff;
+    background-color: var(--primary-color);
+}

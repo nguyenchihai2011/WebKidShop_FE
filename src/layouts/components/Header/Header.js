@@ -7,7 +7,6 @@ import { faCaretDown, faCartShopping, faMagnifyingGlass, faUser, faUserPlus } fr
 
 import styles from './Header.module.scss';
 import Button from '../../../components/Button/Button';
-import imgLogo from '../../../assets/img/header/logo.png';
 
 const cx = classNames.bind(styles);
 
@@ -18,7 +17,7 @@ function Header() {
                 <Row>
                     <div className={cx('service')}>
                         <div className={cx('service-left')}>
-                            <Button small>
+                            <Button to="/account/login" small>
                                 <FontAwesomeIcon icon={faUser} /> Đăng nhập
                             </Button>
                             <Button small>
@@ -45,7 +44,10 @@ function Header() {
                     <Row>
                         <div>
                             <Link className={cx('logo')} to="/">
-                                <img src={imgLogo} alt="logo-img" />
+                                <img
+                                    src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo.png?1564585558451"
+                                    alt="logo-img"
+                                />
                             </Link>
 
                             <ul className={cx('list-items')}>
@@ -62,9 +64,34 @@ function Header() {
                                 </div>
                                 <div className={cx('group-items')}>
                                     <li className={cx('item')}>
-                                        <Button to="/product">
+                                        <Button className={cx('item-btn')}>
                                             Sản phẩm <FontAwesomeIcon icon={faCaretDown} />
                                         </Button>
+                                        <div className={cx('product-dropdown')}>
+                                            <Button className={cx('product-type')} small to="/product/all">
+                                                Tất cả sản phẩm
+                                            </Button>
+
+                                            <Button className={cx('product-type')} small to="">
+                                                Góc bé trai
+                                            </Button>
+
+                                            <Button className={cx('product-type')} small to="">
+                                                Góc bé gái
+                                            </Button>
+
+                                            <Button className={cx('product-type')} small to="">
+                                                Phụ kiện
+                                            </Button>
+
+                                            <Button className={cx('product-type')} small to="">
+                                                Khuyến mãi
+                                            </Button>
+                                            <img
+                                                src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/bg-cate.jpg"
+                                                alt=""
+                                            />
+                                        </div>
                                     </li>
                                     <li className={cx('item')}>
                                         <Button to="/news">Tin tức</Button>

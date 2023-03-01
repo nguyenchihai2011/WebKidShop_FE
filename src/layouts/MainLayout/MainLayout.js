@@ -17,7 +17,8 @@ function MainLayout({ page, children }) {
         <div className="wrapper">
             <Header />
             <Container>
-                <Breadcrumb page={page} />
+                {page && <Breadcrumb page={page} />}
+                {!page && <div className={cx('breadcrumb')}></div>}
                 <Row className={cx('content')}>
                     <Col lg="4">
                         <Nav />

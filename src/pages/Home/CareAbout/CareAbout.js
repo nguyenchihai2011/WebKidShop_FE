@@ -1,5 +1,7 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import NormalProduct from '../Product/NormalProduct/NormalProduct';
 import classNames from 'classnames/bind';
@@ -8,6 +10,15 @@ import styles from './CareAbout.module.scss';
 const cx = classNames.bind(styles);
 
 function CareAbout() {
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get(`/api/product`)
+            .then((res) => res.json())
+            .then((res) => setProduct(res.data));
+    }, []);
+
     return (
         <Container>
             <h2 className={cx('careabout-lable')}>Có thể bạn quan tâm</h2>
@@ -18,11 +29,10 @@ function CareAbout() {
             </h4>
 
             <Row className={cx('careabout-row')}>
-                <NormalProduct
-                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/aovay9.jpg?v=1473603722567"
-                    price="250.000đ"
-                    title="Váy liên thân KIDS - KF5"
-                />
+                {product.map((product) => {
+                    return <NormalProduct src={product.img} price={product.price} title={product.title} />;
+                })}
+
                 <NormalProduct
                     src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/aovay9.jpg?v=1473603722567"
                     price="250.000đ"
