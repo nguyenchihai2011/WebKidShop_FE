@@ -9,7 +9,7 @@ import styles from './Product.module.scss';
 
 import Button from '../../../components/Button/Button';
 import Brand from './Brand/Brand';
-import SellerProduct from './SellerProduct/SellerProduct';
+import SellestProduct from '../../../layouts/components/SellestProduct/SellestProduct';
 import NormalProduct from './NormalProduct/NormalProduct';
 
 const cx = classNames.bind(styles);
@@ -31,29 +31,7 @@ function Product() {
                                 <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo7.png?1564585558451" />
                                 <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo8.png?1564585558451" />
                             </Row>
-                            <Row>
-                                <h5 className={cx('seller-product-lable')}>Sản phẩm bán chạy</h5>
-                                <SellerProduct
-                                    src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay12.jpg?v=1473606357990"
-                                    title="Váy liền thân KIDS-02"
-                                    price="250.000đ"
-                                />
-                                <SellerProduct
-                                    src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay10-b5526dcd-b7d6-4897-b574-5a975a7d60de.jpg?v=1473603768963"
-                                    title="Váy liền thân KIDS-09"
-                                    price="250.000đ"
-                                />
-                                <SellerProduct
-                                    src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay9.jpg?v=1473603722567"
-                                    title="Váy liền thân KIDS-KF5"
-                                    price="250.000đ"
-                                />
-                                <SellerProduct
-                                    src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay1.jpg?v=1473603655807"
-                                    title="Váy liền thân KIDS"
-                                    price="220.000đ"
-                                />
-                            </Row>
+                            <SellestProduct />
                             <div className={cx('contact')}>
                                 <div className={cx('sub-contact')}>
                                     <h5 className={cx('contact-title')}>HOTLINE</h5>

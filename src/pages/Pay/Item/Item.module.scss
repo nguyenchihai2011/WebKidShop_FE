@@ -1,0 +1,33 @@
+.item-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.item-product {
+    display: flex;
+    align-items: center;
+}
+
+.item-info {
+    margin-left: 10px;
+}
+
+.item-name {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 0;
+}
+
+.item-type {
+    font-size: 1.2rem;
+    color: #969696;
+}
+
+.item-price {
+    font-size: 1.4rem;
+    color: #717171;
+}

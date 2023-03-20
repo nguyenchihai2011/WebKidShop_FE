@@ -1,13 +1,13 @@
 import Col from 'react-bootstrap/esm/Col';
 
 import classNames from 'classnames/bind';
-import styles from './SellerProduct.module.scss';
+import styles from './SellProduct.module.scss';
 
 const cx = classNames.bind(styles);
 
 function SellerProduct({ src, title, price }) {
     return (
-        <Col className={cx('seller-product')}>
+        <Col xl={12} className={cx('sell-product')}>
             <img className={cx('product-img')} src={src} alt="product" />
             <div>
                 <h5 className={cx('product-title')}>{title}</h5>

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Pagination from 'react-bootstrap/Pagination';
 import classNames from 'classnames/bind';
 import styles from './PaginationProduct.module.scss';
 
@@ -6,12 +6,14 @@ const cx = classNames.bind(styles);
 
 function PaginationProduct() {
     return (
-        <div className={cx('pagination')}>
-            <Link className={cx('pagination-item')}>&lt;</Link>
-            <Link className={cx('pagination-item', 'active')}>1</Link>
-            <Link className={cx('pagination-item')}>2</Link>
-            <Link className={cx('pagination-item')}>&gt;</Link>
-        </div>
+        <Pagination className={cx('pagination')}>
+            <Pagination.First className={cx('pagination-item')} />
+            <Pagination.Prev className={cx('pagination-item')} />
+            <Pagination.Item className={cx('pagination-item')}>{1}</Pagination.Item>
+            <Pagination.Item className={cx('pagination-item')}>{2}</Pagination.Item>
+            <Pagination.Next className={cx('pagination-item')} />
+            <Pagination.Last className={cx('pagination-item')} />
+        </Pagination>
     );
 }
 

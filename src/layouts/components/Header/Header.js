@@ -20,7 +20,7 @@ function Header() {
                             <Button to="/account/login" small>
                                 <FontAwesomeIcon icon={faUser} /> Đăng nhập
                             </Button>
-                            <Button small>
+                            <Button to="/account/register" small>
                                 <FontAwesomeIcon icon={faUserPlus} /> Đăng ký
                             </Button>
                         </div>

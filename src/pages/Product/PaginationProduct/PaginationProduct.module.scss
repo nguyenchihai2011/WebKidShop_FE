@@ -1,17 +1,19 @@
 .pagination {
     margin-top: 60px;
-    display: flex;
     justify-content: flex-end;
 }
-
-.pagination-item {
+.pagination-item > a {
     font-size: 1.4rem;
     color: #686868;
     padding: 12px;
     border: 1px solid #ddd;
+
+    :active {
+        color: red;
+    }
 }
 
-.active {
+.active > a {
     color: #fff;
     background-color: var(--primary-color);
 }
