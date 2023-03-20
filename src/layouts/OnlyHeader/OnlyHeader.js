@@ -13,17 +13,6 @@ function OnlyHeader({ children, page }) {
     return (
         <div className={cx('wrapper')}>
             <Header />
-            <Container>
-                {page && (
-                    <Breadcrumb className={cx('breadcrumb')}>
-                        <Breadcrumb.Item>
-                            <Link to="/">Trang chủ</Link>
-                        </Breadcrumb.Item>
-                        <Breadcrumb.Item className={cx('breadcrumb-item')}>{page}</Breadcrumb.Item>
-                    </Breadcrumb>
-                )}
-                {!page && <div className={cx('breadcrumb')}></div>}
-            </Container>
             <div className={cx('content')}>{children}</div>
             <Footer />
         </div>
