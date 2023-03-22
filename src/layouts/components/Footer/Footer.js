@@ -1,118 +1,102 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 import styles from './Footer.module.scss';
-import Button from '../../../components/Button/Button';
 
 const cx = classNames.bind(styles);
 
 function Footer() {
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('quicklinks')}>
+            <div>
                 <Container>
                     <Row>
-                        <Col xl={4}>
-                            <Button className={cx('quicklinks-title')} small>
-                                Liên hệ với chúng tôi
-                            </Button>
-                            <Button className={cx('quicklinks-text')} small>
-                                Số 442 Đội Cấn, P. Cống Vị, Q. Ba Đình, Hà Nội
-                            </Button>
-                            <Button className={cx('quicklinks-text')} small>
-                                (04) 6674 2332 - (04) 6674 2332
-                            </Button>
-                            <Button className={cx('quicklinks-text')} small>
-                                Trực 8h00 - 20h00 từ thứ 2 đến thứ 6
-                            </Button>
+                        <Col xl={4} md={4}>
+                            <div className={cx('quicklinks-title')}>Liên hệ với chúng tôi</div>
+                            <div className={cx('quicklinks-text')}>Số 442 Đội Cấn, P. Cống Vị, Q. Ba Đình, Hà Nội</div>
+                            <div className={cx('quicklinks-text')}>(04) 6674 2332 - (04) 6674 2332</div>
+                            <div className={cx('quicklinks-text')}>Trực 8h00 - 20h00 từ thứ 2 đến thứ 6</div>
                         </Col>
-                        <Col xl={2}>
-                            <Button className={cx('quicklinks-title')} small>
-                                Thông tin
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                        <Col xl={2} md={2}>
+                            <div className={cx('quicklinks-title')}>Thông tin</div>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Tài khoản của bạn
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Lịch sử mua hàng
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Chính sách mua bán
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Hướng dẫn mua online
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Liên hệ
-                            </Button>
+                            </Link>
                         </Col>
-                        <Col xl={2}>
-                            <Button className={cx('quicklinks-title')} small>
-                                Sản phẩm
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                        <Col xl={2} md={2}>
+                            <div className={cx('quicklinks-title')}>Sản phẩm</div>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Tất cả sản phẩm
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Góc bé trai
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Góc bé gái
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Phụ kiện
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Khuyễn mãi
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Danh mục trống
-                            </Button>
+                            </Link>
                         </Col>
-                        <Col xl={2}>
-                            <Button className={cx('quicklinks-title')} small>
-                                LIÊN KẾT BLOG
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                        <Col xl={2} md={2}>
+                            <div className={cx('quicklinks-title')}>LIÊN KẾT BLOG</div>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Cẩm nang cho mẹ
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Chương trình ưu đãi
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 TIn thời trang
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Góc chia sẻ
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Ảnh chia sẻ
-                            </Button>
+                            </Link>
                         </Col>
-                        <Col xl={2}>
-                            <Button className={cx('quicklinks-title')} small>
-                                Chính sách
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                        <Col xl={2} md={2}>
+                            <div className={cx('quicklinks-title')}>Chính sách</div>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Tất cả sản phẩm
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Góc bé trai
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Góc bé gái
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Phụ kiện
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Khuyễn mãi
-                            </Button>
-                            <Button className={cx('quicklinks-btn')} small>
+                            </Link>
+                            <Link to="" className={cx('quicklinks-btn')}>
                                 Danh mục trống
-                            </Button>
+                            </Link>
                         </Col>
                     </Row>
                 </Container>

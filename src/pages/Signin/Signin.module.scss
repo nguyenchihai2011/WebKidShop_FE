@@ -1,35 +1,46 @@
-.title {
+.signin {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.signin-title {
     font-size: 1.8rem;
     color: #333;
     text-transform: uppercase;
     font-weight: 400;
     padding-bottom: 10px;
 }
-.desc {
+.signin-desc {
     font-size: 1.6rem;
     color: #666;
     padding: 10px 0 20px;
     margin-bottom: 10px;
     font-weight: 400;
 }
-.form {
+.signin-form {
     display: flex;
     flex-direction: column;
 }
-.lable {
+.signin-form-input-wrap {
+    display: flex;
+    align-items: center;
+}
+.signin-form-lable {
     font-size: 1.4rem;
     color: #686868;
-    padding: 10px 15px;
+    padding: 10px 0px;
     width: 100px;
     display: inline-block;
 }
-.input {
+
+.signin-form-input {
     border: 1px solid #999;
     padding: 4px;
     width: 400px;
+    height: 30px;
 }
 
-.btn-login {
+.signin-btn-login {
     align-self: flex-start;
     font-size: 1.4rem;
     color: #fff;

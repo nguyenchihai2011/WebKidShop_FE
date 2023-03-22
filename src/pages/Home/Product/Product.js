@@ -1,13 +1,13 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames/bind';
 import styles from './Product.module.scss';
 
-import Button from '../../../components/Button/Button';
 import Brand from './Brand/Brand';
 import SellestProduct from '../../../layouts/components/SellestProduct/SellestProduct';
 import NormalProduct from './NormalProduct/NormalProduct';
@@ -16,35 +16,33 @@ const cx = classNames.bind(styles);
 
 function Product() {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('product')}>
             <Container>
                 <Row>
-                    <Col xl={3}>
-                        <aside>
-                            <Row>
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo1.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo2.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo3.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo4.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo5.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo6.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo7.png?1564585558451" />
-                                <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo8.png?1564585558451" />
-                            </Row>
-                            <SellestProduct />
-                            <div className={cx('contact')}>
-                                <div className={cx('sub-contact')}>
-                                    <h5 className={cx('contact-title')}>HOTLINE</h5>
-                                    <h5 className={cx('contact-phone')}>0963.647.129</h5>
-                                </div>
+                    <Col xl={3} className={cx('product-aside')}>
+                        <Row>
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo1.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo2.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo3.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo4.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo5.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo6.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo7.png?1564585558451" />
+                            <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo8.png?1564585558451" />
+                        </Row>
+                        <SellestProduct />
+                        <div className={cx('contact')}>
+                            <div className={cx('sub-contact')}>
+                                <h5 className={cx('contact-title')}>HOTLINE</h5>
+                                <h5 className={cx('contact-phone')}>0963.647.129</h5>
                             </div>
-                        </aside>
+                        </div>
                     </Col>
                     <Col xl={9}>
                         <h3 className={cx('hot-product-lable')}>Sản phẩm nổi bật</h3>
                         <Row>
-                            <Col>
-                                <Button to="" className={cx('hot-product')}>
+                            <Col md={6}>
+                                <Link to="" className={cx('hot-product')}>
                                     <img
                                         className={cx('product-img')}
                                         src="https://bizweb.dktcdn.net/thumb/grande/100/117/632/products/aovay1.jpg?v=1473603655807"
@@ -60,9 +58,9 @@ function Product() {
                                             alt="mua ngay"
                                         />
                                     </div>
-                                </Button>
+                                </Link>
                             </Col>
-                            <Col>
+                            <Col md={6}>
                                 <Row>
                                     <NormalProduct
                                         src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
@@ -75,29 +73,31 @@ function Product() {
                                         title="giầy thể thao buộc dây - 05"
                                     />
                                 </Row>
-                                <Button to="" className={cx('view-full-product')}>
-                                    <div className={cx('full-product-border')}>
-                                        Xem toàn bộ sản phẩm{' '}
-                                        <FontAwesomeIcon
-                                            className={cx('view-full-product-icon')}
-                                            icon={faCircleRight}
-                                        />
-                                    </div>
-                                </Button>
+                                <div className={cx('hot-product-see-all')}>
+                                    <Link to="" className={cx('view-full-product')}>
+                                        <div className={cx('full-product-border')}>
+                                            Xem toàn bộ sản phẩm
+                                            <FontAwesomeIcon
+                                                className={cx('view-full-product-icon')}
+                                                icon={faCircleRight}
+                                            />
+                                        </div>
+                                    </Link>
+                                </div>
                             </Col>
                         </Row>
                         <div className={cx('new-product')}>
                             <h3 className={cx('new-product-lable')}>Hàng mới về!</h3>
                             <div className={cx('new-product-type')}>
-                                <Button className={cx('product-type-btn')} small>
+                                <Link to="" className={cx('product-type-btn')}>
                                     Bé trai
-                                </Button>
-                                <Button className={cx('product-type-btn')} small>
+                                </Link>
+                                <Link to="" className={cx('product-type-btn')}>
                                     Bé gái
-                                </Button>
-                                <Button className={cx('product-type-btn')} small>
+                                </Link>
+                                <Link to="" className={cx('product-type-btn')}>
                                     Phụ kiện
-                                </Button>
+                                </Link>
                             </div>
                         </div>
                         <Row className={cx('new-product-list')}>

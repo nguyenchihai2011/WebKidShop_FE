@@ -27,8 +27,12 @@ function Content() {
                 Hãy đến với chúng tôi để có được những sự lựa chọn tốt nhất và trở thành bà mẹ thông thái của các con mẹ
                 nhé!
             </p>
-            <div className={cx('intro-img')}>
-                <img src="https://bizweb.dktcdn.net/100/117/632/files/1.png?v=1473010170674" alt="" />
+            <div>
+                <img
+                    src="https://bizweb.dktcdn.net/100/117/632/files/1.png?v=1473010170674"
+                    alt=""
+                    className={cx('intro-img')}
+                />
             </div>
             <p className={cx('intro-parag')}>
                 Và điều tuyệt vời nhất là khi thấy con khôn lớn mỗi ngày. Là cha mẹ, việc chăm sóc, quan tâm, dạy dỗ cho

@@ -5,8 +5,8 @@ import News from '../pages/News/News';
 import Contact from '../pages/Contact/Contact';
 import ProductList from '../pages/Product/ProductList/ProductList';
 import ProductDetails from '../pages/ProductDetails/ProductDetails';
-import Login from '../pages/Login/Login';
-import Register from '../pages/Register/Register';
+import Signin from '../pages/Signin/Signin';
+import Register from '../pages/Signup/Signup';
 import Cart from '../pages/Cart/Cart';
 import Pay from '../pages/Pay/Pay';
 import ManageCategory from '../pages/ManageCategory/ManageCategory';
@@ -23,7 +23,7 @@ const publicRoutes = [
     { path: '/contact', component: Contact, layout: MainLayout, page: 'Liên hệ' },
     { path: '/product/all/', component: ProductList, layout: MainLayout },
     { path: '/product/:id', component: ProductDetails, layout: OnlyHeader },
-    { path: '/account/login', component: Login, layout: OnlyHeader, page: 'Đăng nhập' },
+    { path: '/account/login', component: Signin, layout: OnlyHeader, page: 'Đăng nhập' },
     { path: '/account/register', component: Register, layout: OnlyHeader, page: 'Đăng ký' },
     { path: '/cart', component: Cart, layout: OnlyHeader, page: 'Giỏ hàng' },
     { path: '/pay', component: Pay, layout: null },

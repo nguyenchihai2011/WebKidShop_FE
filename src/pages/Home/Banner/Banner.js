@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function Banner() {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('banner')}>
             <Carousel>
                 <Carousel.Item>
                     <img

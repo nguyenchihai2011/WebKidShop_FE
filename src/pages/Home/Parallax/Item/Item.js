@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function Item({ children, title, desc }) {
     return (
-        <Col className={cx('wrapper')}>
+        <Col className={cx('parallax-item')}>
             <span className={cx('item-icon')}>{children}</span>
             <div className={cx('item-info')}>
                 <h3 className={cx('item-title')}>{title}</h3>

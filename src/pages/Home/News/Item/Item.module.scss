@@ -17,3 +17,9 @@
     font-weight: 600;
     padding-bottom: 8px;
 }
+
+@media (max-width: 991px) and (min-width: 576px) {
+    .news-img {
+        width: 105px;
+    }
+}

@@ -13,13 +13,21 @@
     font-size: 1.3rem;
 }
 
+.header-service-signup,
+.header-service-signin {
+    font-weight: bold;
+    font-family: var(--font-family);
+    color: #777777;
+    padding: 20px 6px;
+}
+
 .header-service-right {
     font-size: 1.3rem;
     display: flex;
     align-items: center;
 }
 
-.header-search {
+.header-service-search {
     border: 1px solid #333;
     border-radius: 4px;
 }
@@ -44,6 +52,12 @@
         top: 50%;
         transform: translateY(-50%);
     }
+}
+
+.header-service-cart {
+    font-weight: bold;
+    color: #777777;
+    padding: 20px 30px;
 }
 
 .header-nav {

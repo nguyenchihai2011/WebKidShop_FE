@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/esm/Container';
 
 import classNames from 'classnames/bind';
-import styles from './Register.module.scss';
+import styles from './Signup.module.scss';
 import { useState } from 'react';
 
 import axios from '../../api/axios';
@@ -46,61 +46,61 @@ function Register() {
 
     return (
         <div>
-            <Container>
-                <h1 className={cx('title')}>ĐĂNG KÝ TÀI KHOẢN</h1>
-                <h3 className={cx('desc')}>Nếu bạn có một tài khoản, xin vui lòng chuyển qua trang ĐĂNG NHẬP</h3>
-                <form className={cx('form')}>
-                    <div className={cx('input-container')}>
-                        <span className={cx('lable')}>First Name</span>
+            <Container className={cx('signup')}>
+                <h1 className={cx('signup-title')}>ĐĂNG KÝ TÀI KHOẢN</h1>
+                <h3 className={cx('signup-desc')}>Nếu bạn có một tài khoản, xin vui lòng chuyển qua trang ĐĂNG NHẬP</h3>
+                <form className={cx('signup-form')}>
+                    <div className={cx('signup-form-input-wrap')}>
+                        <span className={cx('signup-form-lable')}>First Name</span>
                         <input
                             type="text"
                             name="first-name"
                             value={firstName}
-                            className={cx('input')}
+                            className={cx('signup-form-input')}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
                     </div>
-                    <div className={cx('input-container')}>
-                        <span className={cx('lable')}>Last Name</span>
+                    <div className={cx('signup-form-input-wrap')}>
+                        <span className={cx('signup-form-lable')}>Last Name</span>
                         <input
                             type="text"
                             name="last-name"
                             value={lastName}
-                            className={cx('input')}
+                            className={cx('signup-form-input')}
                             onChange={(e) => setLastName(e.target.value)}
                         />
                     </div>
-                    <div className={cx('input-container')}>
-                        <span className={cx('lable')}>Email</span>
+                    <div className={cx('signup-form-input-wrap')}>
+                        <span className={cx('signup-form-lable')}>Email</span>
                         <input
                             type="email"
                             name="email"
                             value={email}
-                            className={cx('input')}
+                            className={cx('signup-form-input')}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className={cx('input-container')}>
-                        <span className={cx('lable')}>Mật khẩu</span>
+                    <div className={cx('signup-form-input-wrap')}>
+                        <span className={cx('signup-form-lable')}>Mật khẩu</span>
                         <input
                             type="password"
                             name="password"
                             value={password}
-                            className={cx('input')}
+                            className={cx('signup-form-input')}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className={cx('input-container')}>
-                        <span className={cx('lable')}>Nhập lại mật khẩu</span>
+                    <div className={cx('signup-form-input-wrap')}>
+                        <span className={cx('signup-form-lable')}>Nhập lại mật khẩu</span>
                         <input
                             type="password"
                             name="confirmpassword"
                             value={confirmPassword}
-                            className={cx('input')}
+                            className={cx('signup-form-input')}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
-                    <button className={cx('btn-login')} onClick={(e) => handleSubmit(e)}>
+                    <button className={cx('signup-form-btn')} onClick={(e) => handleSubmit(e)}>
                         Đăng ký
                     </button>
                 </form>

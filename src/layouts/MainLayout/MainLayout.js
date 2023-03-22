@@ -6,7 +6,6 @@ import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 import Header from '../components/Header/Header.js';
 import Nav from '../components/Nav/Nav.js';
-// import Breadcrumb from '../components/Breadcrumb/Breadcrumb.js';
 import Footer from '../components/Footer/Footer.js';
 
 import classNames from 'classnames/bind';

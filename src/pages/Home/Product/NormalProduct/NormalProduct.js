@@ -1,17 +1,18 @@
 import Col from 'react-bootstrap/esm/Col';
+import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
 import styles from './NormalProduct.module.scss';
-
-import Button from '../../../../components/Button/Button';
 
 const cx = classNames.bind(styles);
 
 function NormalProduct({ src, price, title, to }) {
     return (
         <Col>
-            <Button to={to} className={cx('normal-product')}>
-                <img className={cx('product-img')} src={src} alt="giay the thao" />
+            <Link to={to} className={cx('normal-product')}>
+                <div>
+                    <img className={cx('product-img')} src={src} alt="" />
+                </div>
                 <div className={cx('product-info')}>
                     <h5 className={cx('product-price')}>{price}</h5>
                     <h5 className={cx('product-title')}>{title}</h5>
@@ -20,7 +21,7 @@ function NormalProduct({ src, price, title, to }) {
                         alt="mua ngay"
                     />
                 </div>
-            </Button>
+            </Link>
         </Col>
     );
 }

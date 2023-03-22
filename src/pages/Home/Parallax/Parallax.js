@@ -11,11 +11,11 @@ const cx = classNames.bind(styles);
 
 function Parallax() {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('parallax')}>
             <div className={cx('parallax-section')}>
-                <Container className={cx('parallax')}>
+                <Container>
                     <h2 className={cx('parallax-lable')}>Chính sách & hướng dẫn của kidshop !</h2>
-                    <Row className={cx('parallax-row')}>
+                    <Row>
                         <Item
                             title="Chính sách mua bán, trao đổi hàng"
                             desc="Chúng tôi gửi đến bạn những chính sách mua hàng, đổi trả, vận chuyển để đảm bảo được tính công bằng và rõ ràng giữa hai bên"
@@ -29,7 +29,7 @@ function Parallax() {
                             <FontAwesomeIcon icon={faCircleQuestion} />
                         </Item>
                     </Row>
-                    <Row className={cx('parallax-row')}>
+                    <Row>
                         <Item
                             title="Chính sách mua bán, trao đổi hàng"
                             desc="Chúng tôi gửi đến bạn những chính sách mua hàng, đổi trả, vận chuyển để đảm bảo được tính công bằng và rõ ràng giữa hai bên"

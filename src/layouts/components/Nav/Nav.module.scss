@@ -1,6 +1,3 @@
-.category {
-}
-
 .category-lable {
     font-size: 1.6rem;
     color: #fff;
@@ -31,7 +28,7 @@
     align-items: flex-start;
 }
 
-.category-container .category-item {
+.category-item {
     font-size: 1.4rem;
     color: #686868;
     padding: 0;
@@ -52,4 +49,10 @@
 
 .category-img {
     width: 100%;
+}
+
+@media (max-width: 991px) {
+    .category {
+        display: none;
+    }
 }
