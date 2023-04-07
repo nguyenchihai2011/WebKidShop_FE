@@ -68,7 +68,7 @@ function Footer() {
                                 Chương trình ưu đãi
                             </Link>
                             <Link to="" className={cx('quicklinks-btn')}>
-                                TIn thời trang
+                                Tin thời trang
                             </Link>
                             <Link to="" className={cx('quicklinks-btn')}>
                                 Góc chia sẻ

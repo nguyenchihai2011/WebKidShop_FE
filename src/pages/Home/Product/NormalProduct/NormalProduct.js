@@ -1,4 +1,3 @@
-import Col from 'react-bootstrap/esm/Col';
 import { Link } from 'react-router-dom';
 
 import classNames from 'classnames/bind';
@@ -8,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function NormalProduct({ src, price, title, to }) {
     return (
-        <Col>
+        <div className={cx('wrapper')}>
             <Link to={to} className={cx('normal-product')}>
                 <div>
                     <img className={cx('product-img')} src={src} alt="" />
@@ -18,11 +17,11 @@ function NormalProduct({ src, price, title, to }) {
                     <h5 className={cx('product-title')}>{title}</h5>
                     <img
                         src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/btn-buy.png?1564585558451"
-                        alt="mua ngay"
+                        alt=""
                     />
                 </div>
             </Link>
-        </Col>
+        </div>
     );
 }
 

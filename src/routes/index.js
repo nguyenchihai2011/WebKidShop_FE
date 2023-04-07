@@ -9,11 +9,9 @@ import Signin from '../pages/Signin/Signin';
 import Register from '../pages/Signup/Signup';
 import Cart from '../pages/Cart/Cart';
 import Pay from '../pages/Pay/Pay';
-import ManageCategory from '../pages/ManageCategory/ManageCategory';
 
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import OnlyHeader from '../layouts/OnlyHeader/OnlyHeader';
-import ManageLayout from '../layouts/ManageLayout/ManageLayout';
 
 const publicRoutes = [
     { path: '/', component: Home, layout: OnlyHeader },
@@ -27,7 +25,6 @@ const publicRoutes = [
     { path: '/account/register', component: Register, layout: OnlyHeader, page: 'Đăng ký' },
     { path: '/cart', component: Cart, layout: OnlyHeader, page: 'Giỏ hàng' },
     { path: '/pay', component: Pay, layout: null },
-    { path: '/manage/product', component: ManageCategory, layout: ManageLayout },
 ];
 
 const privateRoutes = [];

@@ -21,23 +21,21 @@
     display: flex;
     flex-direction: column;
 }
-.signin-form-input-wrap {
-    display: flex;
-    align-items: center;
-}
+
 .signin-form-lable {
     font-size: 1.4rem;
     color: #686868;
-    padding: 10px 0px;
+    padding: 10px 12px;
     width: 100px;
     display: inline-block;
+    text-align: right;
 }
 
 .signin-form-input {
-    border: 1px solid #999;
+    border: 1px solid #e4e4e4;
     padding: 4px;
     width: 400px;
-    height: 30px;
+    height: 40px;
 }
 
 .signin-btn-login {
@@ -48,4 +46,8 @@
     background-color: var(--primary-color);
     padding: 10px 20px;
     margin: 10px 15px 30px;
+}
+
+.signin-img {
+    width: 100%;
 }

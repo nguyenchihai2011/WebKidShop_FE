@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function Cart() {
     return (
-        <Container>
+        <Container className={cx('cart')}>
             <Table striped bordered hover responsive className={cx('cart-table')}>
                 <thead>
                     <tr className={cx('cart-th')}>
@@ -24,15 +24,15 @@ function Cart() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
+                        <td className={cx('cart-td')}>
                             <img
                                 src="https://bizweb.dktcdn.net/thumb/small/100/117/632/products/aovay12.jpg?v=1473606357990"
                                 alt=""
                             />
                         </td>
-                        <td>Váy liên thân KIDS-02 XL / Đỏ</td>
-                        <td>250.000₫</td>
-                        <td>
+                        <td className={cx('cart-td')}>Váy liên thân KIDS-02 XL / Đỏ</td>
+                        <td className={cx('cart-td')}>250.000₫</td>
+                        <td className={cx('cart-td')}>
                             <input
                                 type="number"
                                 name="quantity"
@@ -42,8 +42,8 @@ function Cart() {
                                 className={cx('cart-td-quantity')}
                             />
                         </td>
-                        <td>250.000₫</td>
-                        <td>
+                        <td className={cx('cart-td')}>250.000₫</td>
+                        <td className={cx('cart-td')}>
                             <FontAwesomeIcon icon={faTrashCan} />
                         </td>
                     </tr>

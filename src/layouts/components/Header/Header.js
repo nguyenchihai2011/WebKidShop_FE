@@ -93,7 +93,7 @@ function Header() {
                             <Link className={cx('header-nav-list-item')} onClick={handleClickProduct}>
                                 Sản phẩm <FontAwesomeIcon icon={faCaretDown} />
                                 <ul ref={refHeaderProductDropdown} className={cx('product-dropdown')}>
-                                    <Link to="" className={cx('product-type')} onClick={handleClickMenu}>
+                                    <Link to="/product/all" className={cx('product-type')} onClick={handleClickMenu}>
                                         Tất cả sản phẩm
                                     </Link>
                                     <Link to="" className={cx('product-type')} onClick={handleClickMenu}>

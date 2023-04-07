@@ -1,3 +1,7 @@
+.cart {
+    margin-top: 50px;
+}
+
 .cart-table {
     text-align: center;
     vertical-align: middle !important;
@@ -7,7 +11,9 @@
 .cart-th {
     text-transform: uppercase;
 }
-
+.cart-td {
+    min-width: 130px;
+}
 .cart-td-quantity {
     width: 50px;
     text-align: center;
@@ -61,4 +67,15 @@
 .cart-btn-buy {
     margin-left: auto;
     margin-bottom: 20px;
+}
+
+@media (max-width: 576px) {
+    .cart-btn-wrap {
+        flex-direction: column;
+    }
+
+    .cart-total-wrap {
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
 }

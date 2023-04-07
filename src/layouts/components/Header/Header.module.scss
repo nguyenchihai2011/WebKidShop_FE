@@ -125,8 +125,13 @@
     height: auto;
     min-height: 70px;
 
+    &:hover {
+        color: rgb(220, 220, 220) !important;
+    }
+
     &:hover .product-dropdown {
         display: flex;
+        margin-top: 15px;
     }
 }
 
