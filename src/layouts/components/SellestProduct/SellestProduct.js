@@ -13,22 +13,26 @@ function SellestProduct() {
             <SellProduct
                 src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay12.jpg?v=1473606357990"
                 title="Váy liền thân KIDS-02"
-                price="250.000đ"
+                oldPrice="250.000"
+                newPrice="250.000"
             />
             <SellProduct
-                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay10-b5526dcd-b7d6-4897-b574-5a975a7d60de.jpg?v=1473603768963"
-                title="Váy liền thân KIDS-09"
-                price="250.000đ"
+                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay12.jpg?v=1473606357990"
+                title="Váy liền thân KIDS-02"
+                oldPrice="250.000"
+                newPrice="250.000"
             />
             <SellProduct
-                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay9.jpg?v=1473603722567"
-                title="Váy liền thân KIDS-KF5"
-                price="250.000đ"
+                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay12.jpg?v=1473606357990"
+                title="Váy liền thân KIDS-02"
+                oldPrice="250.000"
+                newPrice="250.000"
             />
             <SellProduct
-                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay1.jpg?v=1473603655807"
-                title="Váy liền thân KIDS"
-                price="220.000đ"
+                src="https://bizweb.dktcdn.net/thumb/compact/100/117/632/products/aovay12.jpg?v=1473606357990"
+                title="Váy liền thân KIDS-02"
+                oldPrice="250.000"
+                newPrice="250.000"
             />
         </Row>
     );

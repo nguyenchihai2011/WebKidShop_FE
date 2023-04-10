@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Row from 'react-bootstrap/esm/Row';
 
 import classNames from 'classnames/bind';
 import styles from './News.module.scss';
@@ -10,7 +11,9 @@ const cx = classNames.bind(styles);
 function News() {
     return (
         <div>
-            <h1 className={cx('news-lable')}>Cẩm nang cho mẹ</h1>
+            <Row>
+                <h1 className={cx('news-lable')}>Cẩm nang cho mẹ</h1>
+            </Row>
 
             <Link to="">
                 <Item

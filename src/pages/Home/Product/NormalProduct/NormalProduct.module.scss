@@ -7,15 +7,25 @@
     background-color: #fff;
     text-transform: none;
     text-align: center;
+    position: relative;
 }
 
 .product-img {
     height: 140px;
 }
 
-.product-price {
+.product-info {
+}
+
+.product-new-price {
     font-size: 1.6rem;
     color: var(--sub-color);
+}
+
+.product-old-price {
+    font-size: 1.4rem;
+    color: #686868;
+    text-decoration-line: line-through;
 }
 .product-title {
     font-size: 1.4rem;
@@ -26,4 +36,20 @@
     justify-content: center;
     align-items: flex-start;
     text-transform: capitalize;
+}
+
+.product-discount {
+    position: absolute;
+    right: 14px;
+    top: 0px;
+    width: 54px;
+    height: 54px;
+    background: url(https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/sale-circle.png) center center no-repeat;
+    background-size: 100%;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

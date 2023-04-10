@@ -38,7 +38,13 @@ function CareAbout() {
                 {products.map((product) => {
                     return (
                         <Col xl={3} md={3} xs={6}>
-                            <NormalProduct src={product.url} price={product.id} title={product.title} />
+                            <NormalProduct
+                                src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                oldPrice="450.000"
+                                newPrice="450.000"
+                                discount="0"
+                                title="giầy thể thao buộc dây - f56"
+                            />
                         </Col>
                     );
                 })}

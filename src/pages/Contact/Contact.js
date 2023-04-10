@@ -1,3 +1,5 @@
+import Row from 'react-bootstrap/esm/Row';
+
 import classNames from 'classnames/bind';
 import styles from './Contact.module.scss';
 
@@ -6,7 +8,9 @@ const cx = classNames.bind(styles);
 function Contact() {
     return (
         <div>
-            <h1 className={cx('contact-lable')}>Liên hệ</h1>
+            <Row>
+                <h1 className={cx('contact-lable')}>Liên hệ</h1>
+            </Row>
             <h2 className={cx('contact-title')}>
                 KidShop - <span className={cx('contact-shopname')}>Thời trang trẻ em</span>
             </h2>

@@ -65,15 +65,19 @@ function Product() {
                                     <Col>
                                         <NormalProduct
                                             src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                            price="450.000đ"
+                                            oldPrice="450.000"
+                                            newPrice="450.000"
+                                            discount="0"
                                             title="giầy thể thao buộc dây - f56"
                                         />
                                     </Col>
                                     <Col>
                                         <NormalProduct
-                                            src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay1-0406895d-36ca-4e58-811a-e78d13fd1d1d.jpg?v=14736031937"
-                                            price="450.000đ"
-                                            title="giầy thể thao buộc dây - 05"
+                                            src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                            oldPrice="450.000"
+                                            newPrice="450.000"
+                                            discount="0"
+                                            title="giầy thể thao buộc dây - f56"
                                         />
                                     </Col>
                                 </Row>
@@ -107,30 +111,38 @@ function Product() {
                         <Row className={cx('new-product-list')}>
                             <Col>
                                 <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                                    price="245.000đ"
-                                    title="Sơ mi kẻ sọc thời trang cho bé-03"
+                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                    oldPrice="450.000"
+                                    newPrice="450.000"
+                                    discount="0"
+                                    title="giầy thể thao buộc dây - f56"
                                 />
                             </Col>
                             <Col>
                                 <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/somi3-6683f4d9-784f-4dfa-9223-a45d58dd521b.jpg?v=1473604237837"
-                                    price="245.000đ"
-                                    title="Sơ mi kẻ sọc thời trang cho bé-SK"
+                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                    oldPrice="450.000"
+                                    newPrice="450.000"
+                                    discount="0"
+                                    title="giầy thể thao buộc dây - f56"
                                 />
                             </Col>
                             <Col>
                                 <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/somi1.jpg?v=1473604123800"
-                                    price="245.000đ"
-                                    title="Sơ mi kẻ sọc thời trang cho bé"
+                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                    oldPrice="450.000"
+                                    newPrice="450.000"
+                                    discount="0"
+                                    title="giầy thể thao buộc dây - f56"
                                 />
                             </Col>
                             <Col>
                                 <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay1-0406895d-36ca-4e58-811a-e78d13fd1d1d.jpg?v=1473603193730"
-                                    price="245.000đ"
-                                    title="Giày thể thao buộc dây-05"
+                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
+                                    oldPrice="450.000"
+                                    newPrice="450.000"
+                                    discount="0"
+                                    title="giầy thể thao buộc dây - f56"
                                 />
                             </Col>
                         </Row>

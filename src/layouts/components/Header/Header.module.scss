@@ -2,6 +2,10 @@
     display: block !important;
 }
 
+.header-search-mobile {
+    display: none;
+}
+
 .header-service {
     height: 50px;
     display: flex;
@@ -232,6 +236,18 @@
 
     .header-service-right {
         display: none;
+    }
+
+    .header-search-mobile {
+        // display: block;
+        height: 40px;
+        padding: 10px 12px;
+        border: 1px solid #999;
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        top: 120px;
+        border-radius: 8px;
     }
 }
 

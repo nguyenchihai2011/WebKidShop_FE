@@ -1,7 +1,8 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBars,
@@ -13,13 +14,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
-import { useRef } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+    const navigate = useNavigate();
+    const [searchValue, setSearchValue] = useState();
     const refHeaderNavMenu = useRef();
     const refHeaderProductDropdown = useRef();
+    const refInputSearch = useRef();
+    const [showInputSearch, setShowInputSearch] = useState(false);
 
     const handleClickMenu = () => {
         if (window.screen.width < 992) refHeaderNavMenu.current.classList.toggle(cx('hideOrShow'));
@@ -27,6 +31,22 @@ function Header() {
 
     const handleClickProduct = () => {
         if (window.screen.width < 992) refHeaderProductDropdown.current.classList.toggle(cx('hideOrShow'));
+    };
+
+    const handleSearch = (e) => {
+        setSearchValue(e.target.value);
+    };
+
+    const handleEnter = (e) => {
+        if (e.keyCode === 13) {
+            navigate(`/search?gender=${searchValue}`);
+        }
+    };
+
+    const handleSearchMobile = () => {
+        setShowInputSearch(!showInputSearch);
+        refInputSearch.current.classList.toggle(cx('hideOrShow'));
+        refInputSearch.current.focus();
     };
 
     return (
@@ -44,10 +64,16 @@ function Header() {
                         </div>
                         <div className={cx('header-service-right')}>
                             <div className={cx('header-service-search')}>
-                                <input className={cx('header-search-input')} placeholder="Tìm kiếm" />
-                                <button className={cx('header-search-icon')}>
+                                <input
+                                    className={cx('header-search-input')}
+                                    value={searchValue}
+                                    placeholder="Tìm kiếm"
+                                    onChange={handleSearch}
+                                    onKeyDown={handleEnter}
+                                />
+                                <Link to={`/search?gender=${searchValue}`} className={cx('header-search-icon')}>
                                     <FontAwesomeIcon icon={faMagnifyingGlass} />
-                                </button>
+                                </Link>
                             </div>
                             <Link to="/cart" className={cx('header-service-cart')}>
                                 <FontAwesomeIcon icon={faCartShopping} />
@@ -69,8 +95,13 @@ function Header() {
                         </Link>
                         <div className={cx('header-wrapper-btn')}>
                             <Link to="">
-                                <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('header-btn-on-mobile')} />
+                                <FontAwesomeIcon
+                                    icon={faMagnifyingGlass}
+                                    className={cx('header-btn-on-mobile')}
+                                    onClick={handleSearchMobile}
+                                />
                             </Link>
+
                             <Link to="">
                                 <FontAwesomeIcon icon={faCartShopping} className={cx('header-btn-on-mobile')} />
                             </Link>
@@ -128,6 +159,17 @@ function Header() {
                     </div>
                 </Container>
             </nav>
+            <div>
+                <input
+                    ref={refInputSearch}
+                    type="text"
+                    value={searchValue}
+                    placeholder="Tìm kiếm"
+                    onChange={handleSearch}
+                    onKeyDown={handleEnter}
+                    className={cx('header-search-mobile')}
+                />
+            </div>
         </div>
     );
 }

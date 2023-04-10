@@ -13,8 +13,14 @@
     color: #686868;
 }
 
-.product-price {
+.product-new-price {
     font-size: 1.6rem;
     color: var(--sub-color);
     padding: 8px 0;
+}
+
+.product-old-price {
+    font-size: 1.4rem;
+    color: #686868;
+    text-decoration-line: line-through;
 }
