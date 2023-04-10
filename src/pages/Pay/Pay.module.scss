@@ -1,11 +1,15 @@
-.mt-30 {
-    margin-top: 30px;
+.mt-20 {
+    margin-top: 20px;
 }
 
 .pay-home {
     font-size: 2.8rem;
     padding: 20px 0;
     display: block;
+}
+
+.pay-form-group {
+    margin-bottom: 20px;
 }
 
 .pay-lable {
@@ -15,6 +19,8 @@
 
 .pay-input {
     margin-bottom: 10px;
+    min-height: 40px;
+    font-size: 1.6rem !important;
 }
 
 .pay-input-text {
@@ -29,9 +35,7 @@
 
 .pay-radio {
     border: 1px solid #ddd;
-    padding: 14px;
-    display: flex;
-    align-items: center;
+    padding: 12px;
 
     input {
         justify-content: center;

@@ -86,6 +86,15 @@ function Register() {
                             />
                         </p>
                         <p>
+                            <span className={cx('signup-form-lable')}>Điện thoại</span>
+                            <input
+                                type="tel"
+                                name="phone"
+                                className={cx('signup-form-input')}
+                                pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/"
+                            />
+                        </p>
+                        <p>
                             <span className={cx('signup-form-lable')}>Mật khẩu</span>
                             <input
                                 type="password"

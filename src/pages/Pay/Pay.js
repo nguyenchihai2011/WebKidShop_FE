@@ -3,7 +3,6 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Item from './Item/Item';
@@ -26,63 +25,30 @@ function Pay() {
                     <Row>
                         <Col>
                             <h3 className={cx('pay-lable')}>Thông tin nhận hàng</h3>
-                            <FloatingLabel controlId="floatingInput" label="Email" className={cx('pay-input')}>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="name@example.com"
-                                    className={cx('pay-input-text')}
-                                />
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingInput" label="Họ và tên" className={cx('pay-input')}>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="name@example.com"
-                                    className={cx('pay-input-text')}
-                                />
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingInput" label="Số điện thoại" className={cx('pay-input')}>
-                                <Form.Control
-                                    type="tel"
-                                    placeholder="name@example.com"
-                                    className={cx('pay-input-text')}
-                                />
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingInput" label="Địa chỉ" className={cx('pay-input')}>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="name@example.com"
-                                    className={cx('pay-input-text')}
-                                />
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingSelect" label="Tỉnh thành" className={cx('pay-input')}>
-                                <Form.Select
-                                    aria-label="Floating label select example"
-                                    className={cx('pay-input-text')}
-                                >
-                                    <option>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingSelect" label="Quận huyện" className={cx('pay-input')}>
-                                <Form.Select
-                                    aria-label="Floating label select example"
-                                    className={cx('pay-input-text')}
-                                >
-                                    <option>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
-                            </FloatingLabel>
-                            <FloatingLabel controlId="floatingTextarea2" label="Ghi chú" className={cx('pay-input')}>
-                                <Form.Control
-                                    as="textarea"
-                                    placeholder="Leave a comment here"
-                                    className={cx('pay-input-textarea')}
-                                />
-                            </FloatingLabel>
+                            <Form>
+                                <Form.Group controlId="exampleForm.ControlInput1" className={cx('pay-form-group')}>
+                                    <Form.Control type="text" placeholder="Họ và tên" className={cx('pay-input')} />
+                                </Form.Group>
+                                <Form.Group controlId="exampleForm.ControlInput1" className={cx('pay-form-group')}>
+                                    <Form.Control type="text" placeholder="Số điện thoại" className={cx('pay-input')} />
+                                </Form.Group>
+                                <Form.Group controlId="exampleForm.ControlInput1" className={cx('pay-form-group')}>
+                                    <Form.Select aria-label="Default select example" className={cx('pay-input')}>
+                                        <option>Chọn địa chỉ</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </Form.Select>
+                                </Form.Group>
+                                <Form.Group controlId="exampleForm.ControlInput1" className={cx('pay-form-group')}>
+                                    <Form.Control
+                                        as="textarea"
+                                        placeholder="Ghi chú"
+                                        rows={3}
+                                        className={cx('pay-input')}
+                                    />
+                                </Form.Group>
+                            </Form>
                         </Col>
 
                         <Col>
@@ -94,7 +60,7 @@ function Pay() {
                                 className={cx('pay-radio')}
                                 checked
                             />
-                            <h3 className={cx('pay-lable', 'mt-30')}>Thanh toán</h3>
+                            <h3 className={cx('pay-lable', 'mt-20')}>Thanh toán</h3>
                             <div className="mb-3">
                                 <Form.Check
                                     type="radio"
@@ -113,7 +79,7 @@ function Pay() {
                     </Row>
                 </Col>
                 <Col xl={4} className={cx('pay-order')}>
-                    <h3 className={cx('pay-lable', 'mt-30')}>Đơn hàng</h3>
+                    <h3 className={cx('pay-lable', 'mt-20')}>Đơn hàng</h3>
                     <Item />
 
                     <div className={cx('display-flex')}>
