@@ -18,10 +18,8 @@ function ProductDetails() {
     return (
         <Container className={cx('product-details')}>
             <Breadcrumb>
-                <Breadcrumb.Item href="#">Trang chủ</Breadcrumb.Item>
-                <Breadcrumb.Item href="https://getbootstrap.com/docs/4.0/components/breadcrumb/">
-                    Sản phẩm
-                </Breadcrumb.Item>
+                <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
+                <Breadcrumb.Item href="http://localhost:3000/product/all">Sản phẩm</Breadcrumb.Item>
                 <Breadcrumb.Item active>Sơ mi kẻ sọc thời trang cho bé - SK</Breadcrumb.Item>
             </Breadcrumb>
             <Row>

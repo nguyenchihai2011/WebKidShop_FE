@@ -1,20 +1,42 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import axios from 'axios';
 
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Signin.module.scss';
+
+import AuthContext from '../../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    });
 
-    const handleLogin = async (e) => {
+    const onChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
+    };
+
+    const handleLogin = (e) => {
         e.preventDefault();
-        console.log(email, password);
+
+        axios
+            .post('http://localhost:8080/api/user/login', user)
+            .then((res) => {
+                const userID = res.data.user.userId;
+                const email = res.data.user.email;
+                const token = res.data.token;
+                setAuth({ userID, email, token });
+                navigate('/');
+            })
+            .then((err) => console.log(err));
     };
 
     return (
@@ -29,9 +51,9 @@ function Login() {
                             <input
                                 type="email"
                                 name="email"
-                                value={email}
+                                value={user.email}
+                                onChange={onChange}
                                 className={cx('signin-form-input')}
-                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </p>
                         <p>
@@ -39,12 +61,12 @@ function Login() {
                             <input
                                 type="password"
                                 name="password"
-                                value={password}
+                                value={user.password}
+                                onChange={onChange}
                                 className={cx('signin-form-input')}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </p>
-                        <button className={cx('signin-btn-login')} onClick={(e) => handleLogin(e)}>
+                        <button className={cx('signin-btn-login')} onClick={handleLogin}>
                             Đăng nhập
                         </button>
                     </form>

@@ -46,7 +46,7 @@ function Product() {
                                     <img
                                         className={cx('product-img')}
                                         src="https://bizweb.dktcdn.net/thumb/grande/100/117/632/products/aovay1.jpg?v=1473603655807"
-                                        alt="vay lien than"
+                                        alt=""
                                     />
                                     <div className={cx('product-sale')}>-9%</div>
                                     <div className={cx('product-info')}>
@@ -55,7 +55,7 @@ function Product() {
                                         <h5 className={cx('product-title')}>Váy liền thân KIDS - KF5</h5>
                                         <img
                                             src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/btn-buy.png?1564585558451"
-                                            alt="mua ngay"
+                                            alt=""
                                         />
                                     </div>
                                 </Link>
@@ -82,7 +82,7 @@ function Product() {
                                     </Col>
                                 </Row>
                                 <div className={cx('hot-product-see-all')}>
-                                    <Link to="" className={cx('view-full-product')}>
+                                    <Link to="/product/all" className={cx('view-full-product')}>
                                         <div className={cx('full-product-border')}>
                                             Xem toàn bộ sản phẩm
                                             <FontAwesomeIcon
@@ -116,6 +116,7 @@ function Product() {
                                     newPrice="450.000"
                                     discount="0"
                                     title="giầy thể thao buộc dây - f56"
+                                    to={`/product/${456}`}
                                 />
                             </Col>
                             <Col>

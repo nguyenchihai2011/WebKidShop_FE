@@ -12,9 +12,11 @@
 
 .product-img {
     height: 140px;
+    margin: 0 auto;
 }
 
-.product-info {
+.product-info > img {
+    margin: 0 auto;
 }
 
 .product-new-price {

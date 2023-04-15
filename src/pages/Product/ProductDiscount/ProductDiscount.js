@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import styles from './ProductList.module.scss';
+import styles from './ProductFemale.module.scss';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
@@ -11,7 +11,7 @@ import NormalProduct from '../../Home/Product/NormalProduct/NormalProduct';
 
 const cx = classNames.bind(styles);
 
-function ProductList() {
+function ProductDiscount() {
     const [products, setProducts] = useState([]);
     const [currentProducts, setCurrentProducts] = useState([]);
     const [pageCount, setPageCount] = useState(0);
@@ -104,4 +104,4 @@ function ProductList() {
     );
 }
 
-export default ProductList;
+export default ProductDiscount;

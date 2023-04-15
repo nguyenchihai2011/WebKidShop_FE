@@ -11,23 +11,19 @@ function Nav() {
         <aside className={cx('category')}>
             <div className={cx('category-lable')}>Danh mục</div>
             <div className={cx('category-container')}>
-                <Link to="" className={cx('category-item')}>
+                <Link to="/product/all" className={cx('category-item')}>
                     <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
                     Tất cả sản phẩm
                 </Link>
-                <Link to="" className={cx('category-item')}>
+                <Link to="/product/male" className={cx('category-item')}>
                     <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
                     Góc bé trai
                 </Link>
-                <Link to="" className={cx('category-item')}>
+                <Link to="/product/female" className={cx('category-item')}>
                     <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
                     Góc bé gái
                 </Link>
-                <Link to="" className={cx('category-item')}>
-                    <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
-                    Phụ kiện
-                </Link>
-                <Link to="" className={cx('category-item')}>
+                <Link to="/product/discount" className={cx('category-item')}>
                     <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
                     Khuyến mãi
                 </Link>

@@ -16,7 +16,7 @@ function Footer() {
                     <Row>
                         <Col xl={4} md={4}>
                             <div className={cx('quicklinks-title')}>Liên hệ với chúng tôi</div>
-                            <div className={cx('quicklinks-text')}>Số 442 Đội Cấn, P. Cống Vị, Q. Ba Đình, Hà Nội</div>
+                            <div className={cx('quicklinks-text')}>Khu II, Đại học Cần Thơ</div>
                             <div className={cx('quicklinks-text')}>(04) 6674 2332 - (04) 6674 2332</div>
                             <div className={cx('quicklinks-text')}>Trực 8h00 - 20h00 từ thứ 2 đến thứ 6</div>
                         </Col>

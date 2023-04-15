@@ -1,49 +1,47 @@
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import axios from 'axios';
 
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import { useState } from 'react';
-
-import axios from '../../api/axios';
+import { useState, useRef, useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
 function Register() {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [users, setUsers] = useState([]);
+    const [matchPwd, setMatchPwd] = useState('');
+    const [user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        contact: '',
+    });
 
-    const addUsers = (firstName, lastName, email, password) => {
-        axios
-            .post('/user', {
-                firstName,
-                lastName,
-                email,
-                password,
-            })
-            .then((response) => {
-                setUsers([response.data, ...users]);
-            });
-        setFirstName('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
+    const onChange = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (password !== confirmPassword) {
-            alert('pwd no matched');
-        } else {
-            addUsers(firstName, lastName, email, password);
-            alert('Success');
+        if (user.password !== matchPwd) {
+            console.log('Not match pwd');
         }
+        axios
+            .post('http://localhost:8080/api/user/signup', user)
+            .then((res) => {
+                setUser({
+                    firstName: '',
+                    lastName: '',
+                    email: '',
+                    password: '',
+                    contact: '',
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
@@ -59,20 +57,31 @@ function Register() {
                             <span className={cx('signup-form-lable')}>Họ</span>
                             <input
                                 type="text"
-                                name="first-name"
-                                value={firstName}
+                                name="firstName"
+                                value={user.firstName}
+                                onChange={onChange}
                                 className={cx('signup-form-input')}
-                                onChange={(e) => setFirstName(e.target.value)}
                             />
                         </p>
                         <p>
                             <span className={cx('signup-form-lable')}>Tên</span>
                             <input
                                 type="text"
-                                name="last-name"
-                                value={lastName}
+                                name="lastName"
+                                value={user.lastName}
+                                onChange={onChange}
                                 className={cx('signup-form-input')}
-                                onChange={(e) => setLastName(e.target.value)}
+                            />
+                        </p>
+                        <p>
+                            <span className={cx('signup-form-lable')}>Điện thoại</span>
+                            <input
+                                type="tel"
+                                name="contact"
+                                value={user.contact}
+                                onChange={onChange}
+                                className={cx('signup-form-input')}
+                                pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/"
                             />
                         </p>
                         <p>
@@ -80,38 +89,30 @@ function Register() {
                             <input
                                 type="email"
                                 name="email"
-                                value={email}
+                                value={user.email}
+                                onChange={onChange}
                                 className={cx('signup-form-input')}
-                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </p>
-                        <p>
-                            <span className={cx('signup-form-lable')}>Điện thoại</span>
-                            <input
-                                type="tel"
-                                name="phone"
-                                className={cx('signup-form-input')}
-                                pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/"
-                            />
-                        </p>
+
                         <p>
                             <span className={cx('signup-form-lable')}>Mật khẩu</span>
                             <input
                                 type="password"
                                 name="password"
-                                value={password}
+                                value={user.password}
+                                onChange={onChange}
                                 className={cx('signup-form-input')}
-                                onChange={(e) => setPassword(e.target.value)}
                             />
                         </p>
                         <p>
                             <span className={cx('signup-form-lable')}>Nhập lại</span>
                             <input
                                 type="password"
-                                name="confirmpassword"
-                                value={confirmPassword}
+                                name="matchPwd"
+                                value={matchPwd}
+                                onChange={(e) => setMatchPwd(e.target.value)}
                                 className={cx('signup-form-input')}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                         </p>
                         <button className={cx('signup-form-btn')} onClick={(e) => handleSubmit(e)}>

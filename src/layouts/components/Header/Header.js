@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBars,
@@ -12,6 +12,7 @@ import {
     faUser,
     faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import AuthContext from '../../../context/AuthProvider';
 
 import styles from './Header.module.scss';
 
@@ -19,10 +20,13 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const navigate = useNavigate();
+    const { auth, setAuth } = useContext(AuthContext);
+    const [isLogin, setIsLogin] = useState(false);
     const [searchValue, setSearchValue] = useState();
     const refHeaderNavMenu = useRef();
     const refHeaderProductDropdown = useRef();
     const refInputSearch = useRef();
+    const refUserManage = useRef();
     const [showInputSearch, setShowInputSearch] = useState(false);
 
     const handleClickMenu = () => {
@@ -49,19 +53,38 @@ function Header() {
         refInputSearch.current.focus();
     };
 
+    const handleClickInfo = () => {
+        refUserManage.current.classList.toggle(cx('hideOrShow'));
+    };
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        setAuth(null);
+        navigate('/');
+    };
+
+    useEffect(() => {
+        setIsLogin(!!auth);
+    }, [auth]);
+
     return (
         <div className={cx('header')}>
             <Container>
                 <Row>
                     <div className={cx('header-service')}>
                         <div className={cx('header-service-left')}>
-                            <Link to="/account/login" className={cx('header-service-signup')}>
-                                <FontAwesomeIcon icon={faUser} /> Đăng nhập
-                            </Link>
-                            <Link to="/account/register" className={cx('header-service-signin')}>
-                                <FontAwesomeIcon icon={faUserPlus} /> Đăng ký
-                            </Link>
+                            {!isLogin && (
+                                <div>
+                                    <Link to="/account/login" className={cx('header-service-signup')}>
+                                        <FontAwesomeIcon icon={faUser} /> Đăng nhập
+                                    </Link>
+                                    <Link to="/account/register" className={cx('header-service-signin')}>
+                                        <FontAwesomeIcon icon={faUserPlus} /> Đăng ký
+                                    </Link>
+                                </div>
+                            )}
                         </div>
+
                         <div className={cx('header-service-right')}>
                             <div className={cx('header-service-search')}>
                                 <input
@@ -78,6 +101,28 @@ function Header() {
                             <Link to="/cart" className={cx('header-service-cart')}>
                                 <FontAwesomeIcon icon={faCartShopping} />
                             </Link>
+                            {isLogin && (
+                                <div className={cx('header-info')} onClick={handleClickInfo}>
+                                    <span className={cx('header-info-name')}>Alex Mora</span>
+                                    <img
+                                        className={cx('header-info-avatar')}
+                                        src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+                                        alt=""
+                                    />
+
+                                    <ul ref={refUserManage} className={cx('header-manage-list')}>
+                                        <Link to={`/account/profile/123`}>
+                                            <li className={cx('header-manage-item')}>Thông tin cá nhân</li>
+                                        </Link>
+                                        <Link>
+                                            <li className={cx('header-manage-item')}>Lịch sử đặt hàng</li>
+                                        </Link>
+                                        <Link onClick={handleLogout}>
+                                            <li className={cx('header-manage-item')}>Đăng xuất</li>
+                                        </Link>
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </Row>
@@ -127,16 +172,17 @@ function Header() {
                                     <Link to="/product/all" className={cx('product-type')} onClick={handleClickMenu}>
                                         Tất cả sản phẩm
                                     </Link>
-                                    <Link to="" className={cx('product-type')} onClick={handleClickMenu}>
+                                    <Link to="/product/male" className={cx('product-type')} onClick={handleClickMenu}>
                                         Góc bé trai
                                     </Link>
-                                    <Link to="" className={cx('product-type')} onClick={handleClickMenu}>
+                                    <Link to="/product/female" className={cx('product-type')} onClick={handleClickMenu}>
                                         Góc bé gái
                                     </Link>
-                                    <Link to="" className={cx('product-type')} onClick={handleClickMenu}>
-                                        Phụ kiện
-                                    </Link>
-                                    <Link to="" className={cx('product-type')} onClick={handleClickMenu}>
+                                    <Link
+                                        to="/product/discount"
+                                        className={cx('product-type')}
+                                        onClick={handleClickMenu}
+                                    >
                                         Khuyến mãi
                                     </Link>
                                     <>
