@@ -2,7 +2,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import classNames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBars,
@@ -12,7 +12,9 @@ import {
     faUser,
     faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import AuthContext from '../../../context/AuthProvider';
+import { useAuth } from '../../../context/auth';
+import { useCart } from '../../../context/cart';
+import axios from 'axios';
 
 import styles from './Header.module.scss';
 
@@ -20,8 +22,8 @@ const cx = classNames.bind(styles);
 
 function Header() {
     const navigate = useNavigate();
-    const { auth, setAuth } = useContext(AuthContext);
-    const [isLogin, setIsLogin] = useState(false);
+    const [auth, setAuth] = useAuth();
+    const [cart, setCart] = useCart();
     const [searchValue, setSearchValue] = useState();
     const refHeaderNavMenu = useRef();
     const refHeaderProductDropdown = useRef();
@@ -59,13 +61,32 @@ function Header() {
 
     const handleLogout = (e) => {
         e.preventDefault();
-        setAuth(null);
+        setAuth({
+            ...auth,
+            user: null,
+        });
+        localStorage.removeItem('auth');
+        setCart({});
+        localStorage.removeItem('cart');
+        window.location.reload(true);
         navigate('/');
     };
 
+    const [categories, setCategories] = useState([]);
     useEffect(() => {
-        setIsLogin(!!auth);
-    }, [auth]);
+        axios
+            .get('http://localhost:8080/api/category')
+            .then((res) => setCategories(res.data))
+            .catch((err) => console.log(err));
+    }, []);
+
+    // Lay thong tin cart
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/cart/${auth.user?._id}`).then((res) => {
+            setCart({ ...cart, cart: res.data });
+            localStorage.setItem('cart', JSON.stringify(res.data));
+        });
+    }, [auth, cart, setCart]);
 
     return (
         <div className={cx('header')}>
@@ -73,7 +94,7 @@ function Header() {
                 <Row>
                     <div className={cx('header-service')}>
                         <div className={cx('header-service-left')}>
-                            {!isLogin && (
+                            {!auth.user && (
                                 <div>
                                     <Link to="/account/login" className={cx('header-service-signup')}>
                                         <FontAwesomeIcon icon={faUser} /> Đăng nhập
@@ -100,10 +121,17 @@ function Header() {
                             </div>
                             <Link to="/cart" className={cx('header-service-cart')}>
                                 <FontAwesomeIcon icon={faCartShopping} />
+                                <span className={cx('header-service-cart-quantity')}>
+                                    {cart.cart?.cartDetails.reduce((total, item) => {
+                                        return total + item.quantity;
+                                    }, 0)}
+                                </span>
                             </Link>
-                            {isLogin && (
+                            {auth.user && (
                                 <div className={cx('header-info')} onClick={handleClickInfo}>
-                                    <span className={cx('header-info-name')}>Alex Mora</span>
+                                    <span
+                                        className={cx('header-info-name')}
+                                    >{`${auth.user.firstName} ${auth.user.lastName}`}</span>
                                     <img
                                         className={cx('header-info-avatar')}
                                         src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
@@ -169,22 +197,22 @@ function Header() {
                             <Link className={cx('header-nav-list-item')} onClick={handleClickProduct}>
                                 Sản phẩm <FontAwesomeIcon icon={faCaretDown} />
                                 <ul ref={refHeaderProductDropdown} className={cx('product-dropdown')}>
-                                    <Link to="/product/all" className={cx('product-type')} onClick={handleClickMenu}>
+                                    <Link to={`/category`} className={cx('product-type')} onClick={handleClickMenu}>
                                         Tất cả sản phẩm
                                     </Link>
-                                    <Link to="/product/male" className={cx('product-type')} onClick={handleClickMenu}>
-                                        Góc bé trai
-                                    </Link>
-                                    <Link to="/product/female" className={cx('product-type')} onClick={handleClickMenu}>
-                                        Góc bé gái
-                                    </Link>
-                                    <Link
-                                        to="/product/discount"
-                                        className={cx('product-type')}
-                                        onClick={handleClickMenu}
-                                    >
-                                        Khuyến mãi
-                                    </Link>
+                                    {categories.map((category) => {
+                                        return (
+                                            <Link
+                                                key={category._id}
+                                                to={`/category/${category.name}`}
+                                                className={cx('product-type')}
+                                                onClick={handleClickMenu}
+                                            >
+                                                {category.name}
+                                            </Link>
+                                        );
+                                    })}
+
                                     <>
                                         {window.screen.width > 992 && (
                                             <img

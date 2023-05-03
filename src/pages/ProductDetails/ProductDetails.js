@@ -1,101 +1,234 @@
 import classNames from 'classnames/bind';
 import styles from './ProductDetails.module.scss';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import Form from 'react-bootstrap/Form';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Select from 'react-select';
 
 import Nav from '../../layouts/components/Nav/Nav';
-import SellestProduct from '../../layouts/components/SellestProduct/SellestProduct';
-import NormalProduct from '../Home/Product/NormalProduct/NormalProduct';
+// import SellestProduct from '../../layouts/components/SellestProduct/SellestProduct';
+// import NormalProduct from '../Home/Product/NormalProduct/NormalProduct';
+import { useEffect, useState } from 'react';
+import _ from 'lodash';
+import axios from 'axios';
+import { useAuth } from '../../context/auth';
 
 const cx = classNames.bind(styles);
 
 function ProductDetails() {
     const { id } = useParams();
+    const [products, setProducts] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [types, setTypes] = useState([]);
+    const [brands, setBrands] = useState([]);
+    const [size, setSize] = useState([]);
+    const [color, setColor] = useState([]);
+    const [product, setProduct] = useState({
+        name: id,
+        size: '',
+        color: '',
+        quantity: 1,
+    });
+    const [auth] = useAuth();
+
+    function limit(c) {
+        return this.filter((x, i) => {
+            return i <= c - 1;
+        });
+    }
+
+    // eslint-disable-next-line no-extend-native
+    Array.prototype.limit = limit;
+
+    const VND = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+
+    const setCategory = (categoryID) => {
+        const data = categories.filter((cate) => {
+            return cate._id === categoryID;
+        });
+        return data[0]?.name;
+    };
+
+    const setBrand = (brandID) => {
+        const data = brands.filter((brand) => {
+            return brand._id === brandID;
+        });
+        return data[0]?.name;
+    };
+
+    const setType = (typeID) => {
+        const data = types.filter((type) => {
+            return type._id === typeID;
+        });
+        return data[0]?.name;
+    };
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/api/product`)
+            .then((res) => {
+                let data = res.data;
+                data = data.filter((item) => {
+                    return item.name === id;
+                });
+                setProducts(data);
+                data = _.sortBy(data, ['size']);
+                var arrSize = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i]?.size !== data[i + 1]?.size) {
+                        arrSize.push(data[i]);
+                    }
+                }
+                setSize(arrSize);
+                data = _.sortBy(data, ['color']);
+                var arrColor = [];
+
+                for (var j = 0; j < data.length; j++) {
+                    if (data[j]?.color !== data[j + 1]?.color) {
+                        arrColor.push(data[j]);
+                    }
+                }
+                setColor(arrColor);
+            })
+            .catch((err) => console.log(err));
+    }, [id]);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/api/category`)
+            .then((res) => {
+                setCategories(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/api/producttype`)
+            .then((res) => {
+                setTypes(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/api/brand`)
+            .then((res) => {
+                setBrands(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    const handleAddToCart = (e) => {
+        e.preventDefault();
+        products.forEach((item) => {
+            if (item.name === product.name && item.size === product.size && item.color === product.color) {
+                axios
+                    .post(`http://localhost:8080/api/cart/add/${auth.user._id}`, {
+                        productId: item._id,
+                        quantity: product.quantity,
+                    })
+                    .then((res) => {
+                        setProduct({
+                            name: id,
+                            size: '',
+                            color: '',
+                            quantity: 1,
+                        });
+                        alert('Sản phẩm thêm thành công vào giỏ hàng!');
+                    })
+                    .catch((err) => console.log(err));
+            }
+        });
+    };
+
     return (
         <Container className={cx('product-details')}>
             <Breadcrumb>
                 <Breadcrumb.Item href="/">Trang chủ</Breadcrumb.Item>
-                <Breadcrumb.Item href="http://localhost:3000/product/all">Sản phẩm</Breadcrumb.Item>
+                <Breadcrumb.Item href="http://localhost:3000/category">Sản phẩm</Breadcrumb.Item>
                 <Breadcrumb.Item active>Sơ mi kẻ sọc thời trang cho bé - SK</Breadcrumb.Item>
             </Breadcrumb>
             <Row>
                 <Col>
                     <div className={cx('productdetails')}>
-                        <img
-                            src="https://bizweb.dktcdn.net/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7.jpg?v=1473604233470"
-                            alt=""
-                            className={cx('productdetails-img')}
-                        />
+                        <img src={products && products[0]?.productPic} alt="" className={cx('productdetails-img')} />
                     </div>
+
                     <div className={cx('productdetails-list')}>
-                        <img
-                            className={cx('productdetails-item')}
-                            src="https://bizweb.dktcdn.net/thumb/medium/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                            alt=""
-                        />
-                        <img
-                            className={cx('productdetails-item')}
-                            src="https://bizweb.dktcdn.net/thumb/medium/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                            alt=""
-                        />
-                        <img
-                            className={cx('productdetails-item')}
-                            src="https://bizweb.dktcdn.net/thumb/medium/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                            alt=""
-                        />
-                        <img
-                            className={cx('productdetails-item')}
-                            src="https://bizweb.dktcdn.net/thumb/medium/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                            alt=""
-                        />
-                        <img
-                            className={cx('productdetails-item')}
-                            src="https://bizweb.dktcdn.net/thumb/medium/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7-14476867-2495-491c-806b-86678712960e.jpg?v=1473604250600"
-                            alt=""
-                        />
+                        {products?.limit(5).map((product) => {
+                            return <img className={cx('productdetails-item')} src={product.productPic} alt="" />;
+                        })}
                     </div>
                 </Col>
                 <Col>
-                    <h1 className={cx('productdetails-name')}>Sơ mi kẻ sọc thời trang cho bé - SK</h1>
+                    <h1 className={cx('productdetails-name')}>{products && products[0]?.name}</h1>
                     <p>
-                        Giá: <span className={cx('productdetails-price')}>245.000₫</span>
+                        Giá gốc:{' '}
+                        <span className={cx('productdetails-price')}>{VND.format(products && products[0]?.price)}</span>
+                        <span>(chưa bao gồm giảm giá)</span>
                     </p>
+
                     <div className={cx('productdetails-btn')}>Còn hàng</div>
-                    <p className={cx('productdetails-code')}>
-                        Mã sản phẩm:<span className={cx('productdetails-code-span')}>SM-234_1</span>
+                    <p className={cx('productdetails-brand')}>
+                        Danh mục:
+                        <span className={cx('productdetails-brand-span')}>
+                            {setCategory(products && products[0]?.category)}
+                        </span>
                     </p>
                     <p className={cx('productdetails-brand')}>
-                        Thương hiệu:<span className={cx('productdetails-brand-span')}>GAP</span>
+                        Loại sản phẩm:
+                        <span className={cx('productdetails-brand-span')}>
+                            {setType(products && products[0]?.productType)}
+                        </span>
                     </p>
-                    <Form.Select aria-label="Default select example" className={cx('productdetails-dropdown')}>
-                        <option>Size</option>
-                        <option value="1">S</option>
-                        <option value="2">M</option>
-                        <option value="3">L</option>
-                        <option value="3">XL</option>
-                    </Form.Select>
-                    <Form.Select aria-label="Default select example" className={cx('productdetails-dropdown')}>
-                        <option>Màu sắc</option>
-                        <option value="1">Hồng</option>
-                        <option value="2">Trắng</option>
-                        <option value="3">Đen</option>
-                    </Form.Select>
+                    <p className={cx('productdetails-brand')}>
+                        Thương hiệu:
+                        <span className={cx('productdetails-brand-span')}>
+                            {setBrand(products && products[0]?.brand)}
+                        </span>
+                    </p>
+                    <Select
+                        placeholder="Size"
+                        options={size}
+                        getOptionLabel={(option) => option.size}
+                        getOptionValue={(option) => option._id}
+                        onChange={(size) => {
+                            setProduct({ ...product, size: size.size });
+                        }}
+                        className={cx('productdetails-dropdown')}
+                    />
+                    <Select
+                        placeholder="Màu sắc"
+                        options={color}
+                        getOptionLabel={(option) => option.color}
+                        getOptionValue={(option) => option._id}
+                        onChange={(color) => {
+                            setProduct({ ...product, color: color.color });
+                        }}
+                        className={cx('productdetails-dropdown')}
+                    />
                     <div>
                         <input
                             type="number"
                             name="quantity"
+                            value={product.quantity}
                             min="1"
                             max={Infinity}
                             defaultValue="1"
                             className={cx('productdetails-select')}
+                            onChange={(e) => setProduct({ ...product, quantity: e.target.value })}
                         />
-                        <Link>
-                            <button className={cx('productdetails-buy-btn')}>Đặt hàng</button>
-                        </Link>
+
+                        <button onClick={handleAddToCart} className={cx('productdetails-buy-btn')}>
+                            Đặt hàng
+                        </button>
                     </div>
                     <p className={cx('productdetails-hotline-text')}>Gọi ngay để được tư vấn mua hàng !</p>
                     <div className={cx('productdetails-hotline-block')}>HOTLINE: 0963647129</div>
@@ -110,24 +243,17 @@ function ProductDetails() {
                     <Row className={cx('productdetails-info-wrap')}>
                         <h2 className={cx('productdetails-lable')}>Thông tin sản phẩm</h2>
                         <div>
-                            <p className={cx('productdetails-info')}>
-                                Áo sơ mi kẻ sọc cho bé trai cá tính và khỏe khoắn không chỉ được mix cùng quần jeans,
-                                quần kaki để xuống phố mà có thể "kết thân" cùng áo thun năng động mang đến cho bé một
-                                phong cách hoàn toàn mới lạ và sành điệu. Chất vải Kate Oxford xuất dư cực đẹp, thoáng
-                                mát lên form áo đứng dáng nhìn rất yêu. Mẹ yên tâm mua sắm vì áo được may từ chất liệu
-                                kate mềm mịn và thấm hút mồ hôi hiệu quả, mang đến sự thoải mái, mát mẻ cho bé. Áo với
-                                thiết kế có túi nhỏ trước ngực, cổ bẻ cổ điển, đính nút chắc chắn bền đẹp.
-                            </p>
+                            <p className={cx('productdetails-info')}>{products && products[0]?.description}</p>
                             <div className={cx('productdetails')}>
                                 <img
-                                    src="https://bizweb.dktcdn.net/100/117/632/products/somi6-6f995308-45d3-4e20-8d47-4618d8f5a0c7.jpg?v=1473604233470"
+                                    src={products && products[0]?.productPic}
                                     alt=""
                                     className={cx('productdetails-img')}
                                 />
                             </div>
                         </div>
                     </Row>
-                    <Row className={cx('productdetails-info-wrap')}>
+                    {/* <Row className={cx('productdetails-info-wrap')}>
                         <h2 className={cx('productdetails-lable')}>Sản phẩm liên quan</h2>
                         <Row>
                             <Col xl={3} md={6}>
@@ -167,11 +293,11 @@ function ProductDetails() {
                                 />
                             </Col>
                         </Row>
-                    </Row>
+                    </Row> */}
                 </Col>
                 <Col xl={4}>
                     <Nav />
-                    <SellestProduct />
+                    {/* <SellestProduct /> */}
                 </Col>
             </Row>
         </Container>

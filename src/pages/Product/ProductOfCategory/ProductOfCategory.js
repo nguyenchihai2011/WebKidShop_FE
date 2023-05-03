@@ -1,18 +1,20 @@
 import classNames from 'classnames/bind';
-import styles from './ProductList.module.scss';
+import styles from './ProductOfCategory.module.scss';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import Col from 'react-bootstrap/esm/Col';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
+import { useParams } from 'react-router-dom';
 import _ from 'lodash';
 
 import NormalProduct from '../../Home/Product/NormalProduct/NormalProduct';
 
 const cx = classNames.bind(styles);
 
-function ProductList() {
+function ProductOfCategory() {
+    const { id } = useParams();
     const [productList, setProductList] = useState([]);
     const [products, setProducts] = useState([]);
     const [currentProducts, setCurrentProducts] = useState([]);
@@ -25,6 +27,7 @@ function ProductList() {
             .get('http://localhost:8080/api/product')
             .then((res) => {
                 let arrObj = res.data;
+                arrObj = arrObj.filter((item) => item.category === id);
                 var newArr = [];
                 arrObj = _.sortBy(arrObj, ['name']);
                 for (var i = 0; i < arrObj.length; i++) {
@@ -38,7 +41,7 @@ function ProductList() {
                 setPageCount(Math.ceil(newArr.length / 12));
             })
             .catch((err) => console.log(err));
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         axios
@@ -140,4 +143,4 @@ function ProductList() {
     );
 }
 
-export default ProductList;
+export default ProductOfCategory;

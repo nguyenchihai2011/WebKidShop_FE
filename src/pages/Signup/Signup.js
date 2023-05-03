@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +16,7 @@ function Register() {
         lastName: '',
         email: '',
         password: '',
-        contact: '',
+        phone: '',
     });
 
     const onChange = (e) => {
@@ -36,10 +36,12 @@ function Register() {
                     lastName: '',
                     email: '',
                     password: '',
-                    contact: '',
+                    phone: '',
                 });
+                setMatchPwd('');
             })
             .catch((err) => {
+                alert('Thông tin chưa chính xác! Vui lòng kiểm tra lại!');
                 console.log(err);
             });
     };
@@ -77,8 +79,8 @@ function Register() {
                             <span className={cx('signup-form-lable')}>Điện thoại</span>
                             <input
                                 type="tel"
-                                name="contact"
-                                value={user.contact}
+                                name="phone"
+                                value={user.phone}
                                 onChange={onChange}
                                 className={cx('signup-form-input')}
                                 pattern="/^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$/"

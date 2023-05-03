@@ -3,17 +3,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
-import { useState, useContext, useEffect } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './Signin.module.scss';
 
-import AuthContext from '../../context/AuthProvider';
+import { useAuth } from '../../context/auth';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const { setAuth } = useContext(AuthContext);
+    const [auth, setAuth] = useAuth();
     const navigate = useNavigate();
     const [user, setUser] = useState({
         email: '',
@@ -30,13 +30,14 @@ function Login() {
         axios
             .post('http://localhost:8080/api/user/login', user)
             .then((res) => {
-                const userID = res.data.user.userId;
-                const email = res.data.user.email;
-                const token = res.data.token;
-                setAuth({ userID, email, token });
+                setAuth({ ...auth, user: res.data.user });
+                localStorage.setItem('auth', JSON.stringify(res.data));
                 navigate('/');
             })
-            .then((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                alert('Tên tài khoản hoặc mật khẩu không chính xác!');
+            });
     };
 
     return (

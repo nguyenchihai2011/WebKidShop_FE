@@ -12,6 +12,28 @@
     align-items: center;
 }
 
+.item-img-wrapper {
+    position: relative;
+}
+
+.item-img {
+    height: 50px;
+}
+
+.item-quantity {
+    position: absolute;
+    color: white;
+    background-color: #2a9dcc;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
 .item-info {
     margin-left: 10px;
 }

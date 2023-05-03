@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import { useAuth } from '../../context/auth';
 
 import classNames from 'classnames/bind';
 import styles from './Info.module.scss';
@@ -15,16 +16,32 @@ import styles from './Info.module.scss';
 const cx = classNames.bind(styles);
 
 function Info() {
+    const [auth] = useAuth();
     const [show, setShow] = useState(false);
     const [provinces, setProvinces] = useState([]);
     const [selectedProvince, setSelectedProvince] = useState(0);
     const [districts, setDistricts] = useState([]);
     const [selectedDistrict, setSelectedDistrict] = useState(0);
     const [wards, setWards] = useState([]);
+    // eslint-disable-next-line
     const [selectedWard, setSelectedWard] = useState(0);
+    const [addresses, setAddresses] = useState([]);
+    const [address, setAddress] = useState({
+        province: '',
+        district: '',
+        ward: '',
+    });
+    const [street, setStreet] = useState('');
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:8080/api/address/${auth.user?._id}`)
+            .then((res) => setAddresses(res.data.data))
+            .catch((err) => console.log(err));
+    }, [auth]);
 
     useEffect(() => {
         axios
@@ -55,6 +72,22 @@ function Info() {
             .catch((err) => console.log(err));
     }, [selectedDistrict]);
 
+    const handleSave = (e) => {
+        e.preventDefault();
+        const position = `${street} - ${address.ward} - ${address.district} - ${address.province}`;
+        axios
+            .post(`http://localhost:8080/api/address/${auth.user._id}/create`, { address: position })
+            .then((res) => {
+                setAddress({
+                    province: '',
+                    district: '',
+                    ward: '',
+                });
+                setStreet('');
+                setShow(false);
+            })
+            .catch((err) => console.log(err));
+    };
     return (
         <Container className={cx('info')}>
             <Row>
@@ -64,23 +97,35 @@ function Info() {
                     <Row className={cx('info-row')}>
                         <Col>
                             <p className={cx('info-lable')}>Họ</p>
-                            <input className={cx('info-input')} type="text" placeholder="Họ" />
+                            <input
+                                className={cx('info-input')}
+                                type="text"
+                                placeholder="Họ"
+                                readOnly
+                                value={auth.user?.firstName}
+                            />
                         </Col>
                         <Col>
                             <p className={cx('info-lable')}>Tên</p>
-                            <input className={cx('info-input')} type="text" placeholder="Tên" />
+                            <input
+                                className={cx('info-input')}
+                                type="text"
+                                placeholder="Tên"
+                                readOnly
+                                value={auth.user?.lastName}
+                            />
                         </Col>
                     </Row>
 
                     <Row className={cx('info-row')}>
                         <Col>
                             <p className={cx('info-lable')}>Địa chỉ</p>
-                            <Form.Select aria-label="Default select example" className={cx('info-input')}>
-                                <option>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </Form.Select>
+                            <Select
+                                options={addresses}
+                                getOptionLabel={(option) => option.address}
+                                getOptionValue={(option) => option._id}
+                                className={cx('info-form-input')}
+                            />
                         </Col>
                     </Row>
                     <Row>
@@ -106,7 +151,10 @@ function Info() {
                                                 options={provinces}
                                                 getOptionLabel={(option) => option.name}
                                                 getOptionValue={(option) => option.code}
-                                                onChange={(provinces) => setSelectedProvince(provinces.code)}
+                                                onChange={(province) => {
+                                                    setSelectedProvince(province.code);
+                                                    setAddress({ ...address, province: province.name });
+                                                }}
                                                 className={cx('info-form-input')}
                                             />
                                         </Col>
@@ -120,7 +168,10 @@ function Info() {
                                                 options={districts}
                                                 getOptionLabel={(option) => option.name}
                                                 getOptionValue={(option) => option.code}
-                                                onChange={(districts) => setSelectedDistrict(districts.code)}
+                                                onChange={(district) => {
+                                                    setSelectedDistrict(district.code);
+                                                    setAddress({ ...address, district: district.name });
+                                                }}
                                                 className={cx('info-form-input')}
                                             />
                                         </Col>
@@ -134,7 +185,10 @@ function Info() {
                                                 options={wards}
                                                 getOptionLabel={(option) => option.name}
                                                 getOptionValue={(option) => option.code}
-                                                onChange={(wards) => setSelectedWard(wards.code)}
+                                                onChange={(ward) => {
+                                                    setSelectedWard(ward.code);
+                                                    setAddress({ ...address, ward: ward.name });
+                                                }}
                                                 className={cx('info-form-input')}
                                             />
                                         </Col>
@@ -144,7 +198,13 @@ function Info() {
                                             Số nhà, đường
                                         </Form.Label>
                                         <Col xs={9}>
-                                            <Form.Control type="text" name="street" className={cx('info-input')} />
+                                            <Form.Control
+                                                type="text"
+                                                name="street"
+                                                value={street}
+                                                className={cx('info-input')}
+                                                onChange={(e) => setStreet(e.target.value)}
+                                            />
                                         </Col>
                                     </p>
                                 </Form.Group>
@@ -153,7 +213,7 @@ function Info() {
                                 <Button variant="secondary" className={cx('info-form-btn')} onClick={handleClose}>
                                     Close
                                 </Button>
-                                <Button variant="primary" className={cx('info-form-btn')} onClick={handleClose}>
+                                <Button variant="primary" className={cx('info-form-btn')} onClick={handleSave}>
                                     Save
                                 </Button>
                             </Modal.Footer>
@@ -162,13 +222,25 @@ function Info() {
                     <Row className={cx('info-row')}>
                         <Col>
                             <p className={cx('info-lable')}>Điện thoại</p>
-                            <input className={cx('info-input')} type="tel" readOnly placeholder="Tel" />
+                            <input
+                                className={cx('info-input')}
+                                type="tel"
+                                readOnly
+                                placeholder="Tel"
+                                value={auth.user?.phone}
+                            />
                         </Col>
                     </Row>
                     <Row className={cx('info-row')}>
                         <Col>
                             <p className={cx('info-lable')}>Email</p>
-                            <input className={cx('info-input')} type="email" readOnly placeholder="Email" />
+                            <input
+                                className={cx('info-input')}
+                                type="email"
+                                readOnly
+                                placeholder="Email"
+                                value={auth.user?.email}
+                            />
                         </Col>
                     </Row>
                     <Row className={cx('info-wrap-btn')}>

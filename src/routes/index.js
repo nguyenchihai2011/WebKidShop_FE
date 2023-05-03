@@ -4,8 +4,7 @@ import Service from '../pages/Service/Services';
 import News from '../pages/News/News';
 import Contact from '../pages/Contact/Contact';
 import ProductList from '../pages/Product/ProductList/ProductList';
-import ProductMale from '../pages/Product/ProductMale/ProductMale';
-import ProductFemale from '../pages/Product/ProductFemale/ProductFemale';
+import ProductOfCategory from '../pages/Product/ProductOfCategory/ProductOfCategory';
 import ProductDetails from '../pages/ProductDetails/ProductDetails';
 import Signin from '../pages/Signin/Signin';
 import Register from '../pages/Signup/Signup';
@@ -24,11 +23,10 @@ const publicRoutes = [
     { path: '/news', component: News, layout: MainLayout, page: 'Tin tức' },
     { path: '/contact', component: Contact, layout: MainLayout, page: 'Liên hệ' },
     { path: '/search', component: Search, layout: MainLayout, page: 'Tìm kiếm' },
-    { path: '/product/all/', component: ProductList, layout: MainLayout, page: 'Tất cả sản phẩm' },
-    { path: '/product/male/', component: ProductMale, layout: MainLayout, page: 'Góc bé trai' },
-    { path: '/product/female/', component: ProductFemale, layout: MainLayout, page: 'Góc bé gái' },
-    { path: '/product/discount/', component: ProductList, layout: MainLayout, page: 'Khuyến mãi' },
-    { path: '/product/:id', component: ProductDetails, layout: OnlyHeader },
+    { path: '/category/', component: ProductList, layout: MainLayout },
+    { path: '/category/:id', component: ProductOfCategory, layout: MainLayout },
+    { path: '/category/product/:id', component: ProductDetails, layout: OnlyHeader },
+    { path: '/category/:id/product/:id', component: ProductDetails, layout: OnlyHeader },
     { path: '/account/login', component: Signin, layout: OnlyHeader, page: 'Đăng nhập' },
     { path: '/account/register', component: Register, layout: OnlyHeader, page: 'Đăng ký' },
     { path: '/account/profile/:id', component: Info, layout: OnlyHeader, page: '' },
