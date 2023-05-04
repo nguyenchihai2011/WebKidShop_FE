@@ -29,11 +29,12 @@ function Pay() {
         currency: 'VND',
     });
 
+    const [promotion, setPromotion] = useState([]);
     const [addresses, setAddresses] = useState([]);
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState({
         user: auth.user?._id,
-        order: [cart.cart?.cartDetails],
+        order: [],
         address: '',
         note: '',
         status: 'Pending',
@@ -46,18 +47,8 @@ function Pay() {
         }, 0),
     );
 
-    useEffect(() => {
-        setTotalBill(
-            cart.cart?.cartDetails.reduce((total, item) => {
-                return total + item.product.price * item.quantity;
-            }, 0),
-        );
-    }, [totalBill, cart]);
-
     //paypal
     const [show, setShow] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [orderID, setOrderID] = useState(false);
 
     useEffect(() => {
         axios
@@ -82,43 +73,15 @@ function Pay() {
         });
     }, [cart]);
 
-    //paypal
-    const createOrder = (data, actions) => {
-        return actions.order
-            .create({
-                purchase_units: [
-                    {
-                        amount: {
-                            currency_code: 'USD',
-                            value: totalBill / 23000,
-                        },
-                    },
-                ],
-            })
-            .then((orderID) => {
-                setOrderID(orderID);
-                return orderID;
-            });
-    };
-
-    // check Approval
-    const onApprove = (data, actions) => {
-        return actions.order.capture().then(function (details) {
-            // eslint-disable-next-line
-            const { payer } = details;
-            setSuccess(true);
-        });
-    };
-
-    useEffect(() => {
-        if (success) {
-            alert('Payment successful!!');
-            console.log('Order successful . Your order id is--', orderID);
-        }
-    }, [success, orderID]);
-
     const handleCheckout = (e) => {
         e.preventDefault();
+        setOrder({
+            ...order,
+            user: auth.user?._id,
+            order: cart.cart?.cartDetails.map((item) => {
+                return { product: item.product._id, quantity: item.quantity };
+            }),
+        });
         if (order.paymentType === '') {
             alert('Bạn chưa chọn phương thức thanh toán!');
         } else if (order.paymentType === 'COD') {
@@ -133,7 +96,35 @@ function Pay() {
                 .catch((err) => console.log(err));
         } else {
             setShow(true);
+            setTotalBill(
+                products.reduce((total, product) => {
+                    return (
+                        total +
+                        (product.promotion
+                            ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                            : product.price) *
+                            product.quantity
+                    );
+                }, 40000),
+            );
         }
+    };
+
+    //Promotion
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/api/promotion')
+            .then((res) => {
+                setPromotion(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    const setDiscount = (promotionID) => {
+        const data = promotion.filter((promo) => {
+            return promo._id === promotionID;
+        });
+        return data[0]?.discount;
     };
 
     return (
@@ -202,7 +193,10 @@ function Pay() {
                                 <h3 className={cx('pay-lable', 'mt-20')}>Thanh toán</h3>
                                 <div
                                     className="mb-3"
-                                    onChange={(e) => setOrder({ ...order, paymentType: e.target.value })}
+                                    onChange={(e) => {
+                                        setOrder({ ...order, paymentType: e.target.value });
+                                        if (e.target.value === 'COD') setShow(false);
+                                    }}
                                 >
                                     <Form.Check
                                         type="radio"
@@ -234,7 +228,11 @@ function Pay() {
                                         name={product.name}
                                         size={product.size}
                                         color={product.color}
-                                        price={product.price}
+                                        price={
+                                            product.promotion
+                                                ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                                                : product.price
+                                        }
                                         quantity={product.quantity}
                                     />
                                 );
@@ -244,8 +242,14 @@ function Pay() {
                                 <p>Tạm tính</p>
                                 <p>
                                     {VND.format(
-                                        cart.cart?.cartDetails.reduce((total, item) => {
-                                            return total + item.product.price * item.quantity;
+                                        products.reduce((total, product) => {
+                                            return (
+                                                total +
+                                                (product.promotion
+                                                    ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                                                    : product.price) *
+                                                    product.quantity
+                                            );
                                         }, 0),
                                     )}
                                 </p>
@@ -257,7 +261,19 @@ function Pay() {
 
                             <div className={cx('display-flex')}>
                                 <p>Tổng cộng</p>
-                                <p>290.000đ</p>
+                                <p>
+                                    {VND.format(
+                                        products.reduce((total, product) => {
+                                            return (
+                                                total +
+                                                (product.promotion
+                                                    ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                                                    : product.price) *
+                                                    product.quantity
+                                            );
+                                        }, 40000),
+                                    )}
+                                </p>
                             </div>
                             <div className={cx('display-flex')}>
                                 <Link to="/cart">
@@ -273,9 +289,32 @@ function Pay() {
                         <Row>
                             {show ? (
                                 <PayPalButtons
-                                    style={{ layout: 'vertical' }}
-                                    createOrder={createOrder}
-                                    onApprove={onApprove}
+                                    createOrder={(data, actions) => {
+                                        return actions.order.create({
+                                            purchase_units: [
+                                                {
+                                                    amount: {
+                                                        value: (totalBill / 23000).toFixed(1),
+                                                    },
+                                                },
+                                            ],
+                                        });
+                                    }}
+                                    onApprove={(data, actions) => {
+                                        return actions.order.capture().then((details) => {
+                                            const name = details.payer.name.given_name;
+                                            alert(`Transaction completed by ${name}`);
+                                            axios
+                                                .post('http://localhost:8080/api/checkout', order)
+                                                .then((res) => {
+                                                    alert('Thanh toán thành công!');
+                                                    setCart({});
+                                                    localStorage.removeItem('cart');
+                                                    navigate('/');
+                                                })
+                                                .catch((err) => console.log(err));
+                                        });
+                                    }}
                                 />
                             ) : null}
                         </Row>

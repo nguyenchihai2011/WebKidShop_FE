@@ -17,6 +17,7 @@ function Cart() {
     const [products, setProducts] = useState([]);
     const [cartDetail, setCartDetail] = useState([]);
     const [cartItem, setCartItem] = useState([]);
+    const [promotion, setPromotion] = useState([]);
 
     const VND = new Intl.NumberFormat('vi-VN', {
         style: 'currency',
@@ -59,8 +60,6 @@ function Cart() {
             });
         });
 
-        console.log(cartDetail);
-
         axios
             .put(`http://localhost:8080/api/cart/update/${cart.cart.user._id}`, { cartItems: cartDetail })
             .then((res) => {
@@ -85,6 +84,23 @@ function Cart() {
         });
     }, [cart]);
 
+    //Promotion
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/api/promotion')
+            .then((res) => {
+                setPromotion(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    const setDiscount = (promotionID) => {
+        const data = promotion.filter((promo) => {
+            return promo._id === promotionID;
+        });
+        return data[0]?.discount;
+    };
+
     return (
         <Container className={cx('cart')}>
             <Table striped bordered hover responsive className={cx('cart-table')}>
@@ -107,7 +123,11 @@ function Cart() {
                                 name={product.name}
                                 color={product.color}
                                 size={product.size}
-                                price={product.price}
+                                price={
+                                    product.promotion
+                                        ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                                        : product.price
+                                }
                                 quantity={product.quantity}
                                 cb={callbackSetCart}
                             />
@@ -128,8 +148,14 @@ function Cart() {
                     <div className={cx('cart-total')}>Tổng tiền</div>
                     <div className={cx('cart-total')}>
                         {VND.format(
-                            cart.cart?.cartDetails.reduce((total, item) => {
-                                return total + item.product.price * item.quantity;
+                            products.reduce((total, product) => {
+                                return (
+                                    total +
+                                    (product.promotion
+                                        ? (product.price * (100 - setDiscount(product.promotion))) / 100
+                                        : product.price) *
+                                        product.quantity
+                                );
                             }, 0),
                         )}
                     </div>

@@ -33,6 +33,16 @@ function Info() {
     });
     const [street, setStreet] = useState('');
 
+    const [info, setInfo] = useState({
+        firstName: auth.user?.firstName,
+        lastName: auth.user?.lastName,
+        phone: auth.user?.phone,
+    });
+
+    const changeInfo = (e) => {
+        setInfo({ ...info, [e.target.name]: e.target.value });
+    };
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -88,6 +98,18 @@ function Info() {
             })
             .catch((err) => console.log(err));
     };
+
+    const handleEditInfo = (e) => {
+        e.preventDefault();
+        axios
+            .put(`http://localhost:8080/api/user/${auth.user?._id}`, info)
+            .then((res) => {
+                alert('Cập nhật thông tin thành công! Thông tin của bạn sẽ thay đổi cho lần đăng nhập sau!');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
     return (
         <Container className={cx('info')}>
             <Row>
@@ -101,8 +123,9 @@ function Info() {
                                 className={cx('info-input')}
                                 type="text"
                                 placeholder="Họ"
-                                readOnly
-                                value={auth.user?.firstName}
+                                value={info.firstName}
+                                name="firstName"
+                                onChange={changeInfo}
                             />
                         </Col>
                         <Col>
@@ -111,8 +134,9 @@ function Info() {
                                 className={cx('info-input')}
                                 type="text"
                                 placeholder="Tên"
-                                readOnly
-                                value={auth.user?.lastName}
+                                value={info.lastName}
+                                name="lastName"
+                                onChange={changeInfo}
                             />
                         </Col>
                     </Row>
@@ -225,9 +249,10 @@ function Info() {
                             <input
                                 className={cx('info-input')}
                                 type="tel"
-                                readOnly
                                 placeholder="Tel"
-                                value={auth.user?.phone}
+                                value={info.phone}
+                                name="phone"
+                                onChange={changeInfo}
                             />
                         </Col>
                     </Row>
@@ -245,7 +270,9 @@ function Info() {
                     </Row>
                     <Row className={cx('info-wrap-btn')}>
                         <button className={cx('info-btn')}>Huỷ</button>
-                        <button className={cx('info-btn')}>Lưu</button>
+                        <button className={cx('info-btn')} onClick={handleEditInfo}>
+                            Lưu
+                        </button>
                     </Row>
                 </Col>
                 <Col xl={3}>

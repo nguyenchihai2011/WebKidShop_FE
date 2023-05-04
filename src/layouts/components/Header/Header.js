@@ -43,12 +43,6 @@ function Header() {
         setSearchValue(e.target.value);
     };
 
-    const handleEnter = (e) => {
-        if (e.keyCode === 13) {
-            navigate(`/search?gender=${searchValue}`);
-        }
-    };
-
     const handleSearchMobile = () => {
         setShowInputSearch(!showInputSearch);
         refInputSearch.current.classList.toggle(cx('hideOrShow'));
@@ -113,9 +107,11 @@ function Header() {
                                     value={searchValue}
                                     placeholder="Tìm kiếm"
                                     onChange={handleSearch}
-                                    onKeyDown={handleEnter}
                                 />
-                                <Link to={`/search?gender=${searchValue}`} className={cx('header-search-icon')}>
+                                <Link
+                                    to={`/api/product/search?search=${searchValue}`}
+                                    className={cx('header-search-icon')}
+                                >
                                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                                 </Link>
                             </div>
@@ -139,11 +135,14 @@ function Header() {
                                     />
 
                                     <ul ref={refUserManage} className={cx('header-manage-list')}>
-                                        <Link to={`/account/profile/123`}>
+                                        <Link to={`/account/profile`}>
                                             <li className={cx('header-manage-item')}>Thông tin cá nhân</li>
                                         </Link>
-                                        <Link>
+                                        <Link to="/history/checkout">
                                             <li className={cx('header-manage-item')}>Lịch sử đặt hàng</li>
+                                        </Link>
+                                        <Link>
+                                            <li className={cx('header-manage-item')}>Đổi mật khẩu</li>
                                         </Link>
                                         <Link onClick={handleLogout}>
                                             <li className={cx('header-manage-item')}>Đăng xuất</li>
@@ -203,8 +202,9 @@ function Header() {
                                     {categories.map((category) => {
                                         return (
                                             <Link
+                                                Link
                                                 key={category._id}
-                                                to={`/category/${category.name}`}
+                                                to={`/category/${category._id}`}
                                                 className={cx('product-type')}
                                                 onClick={handleClickMenu}
                                             >
@@ -240,7 +240,6 @@ function Header() {
                     value={searchValue}
                     placeholder="Tìm kiếm"
                     onChange={handleSearch}
-                    onKeyDown={handleEnter}
                     className={cx('header-search-mobile')}
                 />
             </div>
