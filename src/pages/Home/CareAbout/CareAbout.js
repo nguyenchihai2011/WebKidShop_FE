@@ -13,6 +13,7 @@ const cx = classNames.bind(styles);
 function CareAbout() {
     const [products, setProducts] = useState([]);
 
+    //
     useEffect(() => {
         const getProducts = async () => {
             try {
