@@ -4,17 +4,55 @@ import Col from 'react-bootstrap/esm/Col';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import classNames from 'classnames/bind';
 import styles from './Product.module.scss';
 
 import Brand from './Brand/Brand';
 import SellestProduct from '../../../layouts/components/SellestProduct/SellestProduct';
+// import SellProduct from '../../../layouts/components/SellestProduct/SellProduct/SellProduct';
 import NormalProduct from './NormalProduct/NormalProduct';
 
 const cx = classNames.bind(styles);
 
 function Product() {
+    const [products, setProducts] = useState([]);
+    const [products2, setProducts2] = useState([]);
+    const [products4, setProducts4] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/api/product/')
+            .then((res) => {
+                setProducts(res.data);
+                setProducts2(res.data.filter((pro, i) => i < 2));
+                setProducts4(res.data.filter((pro, i) => i < 4));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [products]);
+
+    const [promotion, setPromotion] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:8080/api/promotion')
+            .then((res) => {
+                setPromotion(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    const setDiscount = (promotionID) => {
+        const data = promotion.filter((promo) => {
+            return promo._id === promotionID;
+        });
+        return data[0]?.discount;
+    };
+
     return (
         <div className={cx('product')}>
             <Container>
@@ -30,7 +68,8 @@ function Product() {
                             <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo7.png?1564585558451" />
                             <Brand src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/logo8.png?1564585558451" />
                         </Row>
-                        <SellestProduct />
+                        <SellestProduct products={products4} />
+
                         <div className={cx('contact')}>
                             <div className={cx('sub-contact')}>
                                 <h5 className={cx('contact-title')}>HOTLINE</h5>
@@ -62,27 +101,25 @@ function Product() {
                             </Col>
                             <Col xl={6} md={6}>
                                 <Row>
-                                    <Col>
-                                        <NormalProduct
-                                            src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                            oldPrice="450.000"
-                                            newPrice="450.000"
-                                            discount="0"
-                                            title="giầy thể thao buộc dây - f56"
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <NormalProduct
-                                            src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                            oldPrice="450.000"
-                                            newPrice="450.000"
-                                            discount="0"
-                                            title="giầy thể thao buộc dây - f56"
-                                        />
-                                    </Col>
+                                    {products2.map((product) => {
+                                        return (
+                                            <Col>
+                                                <NormalProduct
+                                                    src={product.productPic}
+                                                    oldPrice={product.price}
+                                                    newPrice={
+                                                        product.promotion &&
+                                                        (product.price * (100 - setDiscount(product.promotion))) / 100
+                                                    }
+                                                    discount={setDiscount(product.promotion)}
+                                                    title={product.name}
+                                                />
+                                            </Col>
+                                        );
+                                    })}
                                 </Row>
                                 <div className={cx('hot-product-see-all')}>
-                                    <Link to="/product/all" className={cx('view-full-product')}>
+                                    <Link to="/category" className={cx('view-full-product')}>
                                         <div className={cx('full-product-border')}>
                                             Xem toàn bộ sản phẩm
                                             <FontAwesomeIcon
@@ -109,43 +146,22 @@ function Product() {
                             </div>
                         </div>
                         <Row className={cx('new-product-list')}>
-                            <Col>
-                                <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                    oldPrice="450.000"
-                                    newPrice="450.000"
-                                    discount="0"
-                                    title="giầy thể thao buộc dây - f56"
-                                    to={`/product/${456}`}
-                                />
-                            </Col>
-                            <Col>
-                                <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                    oldPrice="450.000"
-                                    newPrice="450.000"
-                                    discount="0"
-                                    title="giầy thể thao buộc dây - f56"
-                                />
-                            </Col>
-                            <Col>
-                                <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                    oldPrice="450.000"
-                                    newPrice="450.000"
-                                    discount="0"
-                                    title="giầy thể thao buộc dây - f56"
-                                />
-                            </Col>
-                            <Col>
-                                <NormalProduct
-                                    src="https://bizweb.dktcdn.net/thumb/large/100/117/632/products/giay5-6ad05ccc-be71-4eca-83f8-3e73a5570372-42da6097-d9b3-437a-afe5-66c1be4352b4-8a365fca-ef0a-415a-838e-f172e148cb7c.jpg?v=1473603367790"
-                                    oldPrice="450.000"
-                                    newPrice="450.000"
-                                    discount="0"
-                                    title="giầy thể thao buộc dây - f56"
-                                />
-                            </Col>
+                            {products4.map((product) => {
+                                return (
+                                    <Col>
+                                        <NormalProduct
+                                            src={product.productPic}
+                                            oldPrice={product.price}
+                                            newPrice={
+                                                product.promotion &&
+                                                (product.price * (100 - setDiscount(product.promotion))) / 100
+                                            }
+                                            discount={setDiscount(product.promotion)}
+                                            title={product.name}
+                                        />
+                                    </Col>
+                                );
+                            })}
                         </Row>
                         <img
                             className={cx('ads-img')}

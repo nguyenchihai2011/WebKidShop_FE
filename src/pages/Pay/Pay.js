@@ -49,11 +49,12 @@ function Pay() {
 
     //paypal
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
 
     useEffect(() => {
         axios
             .get(`http://localhost:8080/api/address/${auth.user?._id}`)
-            .then((res) => setAddresses(res.data.data))
+            .then((res) => setAddresses(res.data.data[0].addresses))
             .catch((err) => console.log(err));
     }, [auth]);
 
@@ -75,25 +76,19 @@ function Pay() {
 
     const handleCheckout = (e) => {
         e.preventDefault();
+
         setOrder({
             ...order,
             user: auth.user?._id,
-            order: cart.cart?.cartDetails.map((item) => {
-                return { product: item.product._id, quantity: item.quantity };
+            order: products.map((item) => {
+                return { product: item._id, quantity: item.quantity };
             }),
         });
+
         if (order.paymentType === '') {
             alert('Bạn chưa chọn phương thức thanh toán!');
         } else if (order.paymentType === 'COD') {
-            axios
-                .post('http://localhost:8080/api/checkout', order)
-                .then((res) => {
-                    alert('Thanh toán thành công!');
-                    setCart({});
-                    localStorage.removeItem('cart');
-                    navigate('/');
-                })
-                .catch((err) => console.log(err));
+            setShow2(true);
         } else {
             setShow(true);
             setTotalBill(
@@ -125,6 +120,19 @@ function Pay() {
             return promo._id === promotionID;
         });
         return data[0]?.discount;
+    };
+
+    const handleCheckoutCOD = (e) => {
+        e.preventDefault();
+        axios
+            .post('http://localhost:8080/api/checkout', order)
+            .then((res) => {
+                alert('Thanh toán thành công!');
+                setCart({});
+                localStorage.removeItem('cart');
+                navigate('/');
+            })
+            .catch((err) => console.log(err));
     };
 
     return (
@@ -195,7 +203,11 @@ function Pay() {
                                     className="mb-3"
                                     onChange={(e) => {
                                         setOrder({ ...order, paymentType: e.target.value });
-                                        if (e.target.value === 'COD') setShow(false);
+                                        if (e.target.value === 'COD') {
+                                            setShow(false);
+                                        } else {
+                                            setShow2(false);
+                                        }
                                     }}
                                 >
                                     <Form.Check
@@ -282,7 +294,7 @@ function Pay() {
                                     </button>
                                 </Link>
                                 <Link onClick={handleCheckout}>
-                                    <button className={cx('pay-btn-buy')}>Đặt hàng</button>
+                                    <button className={cx('pay-btn-buy')}>Thanh toán</button>
                                 </Link>
                             </div>
                         </Row>
@@ -316,6 +328,11 @@ function Pay() {
                                         });
                                     }}
                                 />
+                            ) : null}
+                            {show2 ? (
+                                <button className={cx('pay-btn-buy')} onClick={handleCheckoutCOD}>
+                                    Đặt hàng
+                                </button>
                             ) : null}
                         </Row>
                     </Col>

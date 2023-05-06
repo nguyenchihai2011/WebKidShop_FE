@@ -12,6 +12,8 @@ import Cart from '../pages/Cart/Cart';
 import Pay from '../pages/Pay/Pay';
 import Search from '../pages/Search/Search';
 import Info from '../pages/Info/Info';
+import Checkout from '../pages/Checkout/Checkout';
+import ChangePassword from '../pages/ChangePassword/ChangePassword';
 
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import OnlyHeader from '../layouts/OnlyHeader/OnlyHeader';
@@ -31,8 +33,9 @@ const publicRoutes = [
     { path: '/account/login', component: Signin, layout: OnlyHeader, page: 'Đăng nhập' },
     { path: '/account/register', component: Register, layout: OnlyHeader, page: 'Đăng ký' },
     { path: '/account/profile', component: Info, layout: OnlyHeader, page: '' },
+    { path: '/account/password', component: ChangePassword, layout: OnlyHeader, page: '' },
     { path: '/cart', component: Cart, layout: OnlyHeader, page: 'Giỏ hàng' },
-    { path: '/history/checkout', component: Cart, layout: MainLayout },
+    { path: '/history/checkout', component: Checkout, layout: MainLayout },
     { path: '/pay', component: Pay, layout: null, page: '' },
     { path: '/map', component: Map, layout: null, page: '' },
 ];

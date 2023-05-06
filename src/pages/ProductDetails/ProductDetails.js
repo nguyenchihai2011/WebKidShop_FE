@@ -142,6 +142,7 @@ function ProductDetails() {
                             quantity: 1,
                         });
                         alert('Sản phẩm thêm thành công vào giỏ hàng!');
+                        // window.location.reload();
                     })
                     .catch((err) => console.log(err));
             }

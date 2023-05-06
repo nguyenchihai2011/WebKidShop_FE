@@ -49,7 +49,7 @@ function Info() {
     useEffect(() => {
         axios
             .get(`http://localhost:8080/api/address/${auth.user?._id}`)
-            .then((res) => setAddresses(res.data.data))
+            .then((res) => setAddresses(res.data.data[0].addresses))
             .catch((err) => console.log(err));
     }, [auth]);
 

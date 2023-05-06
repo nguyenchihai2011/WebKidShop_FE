@@ -141,7 +141,7 @@ function Header() {
                                         <Link to="/history/checkout">
                                             <li className={cx('header-manage-item')}>Lịch sử đặt hàng</li>
                                         </Link>
-                                        <Link>
+                                        <Link to="/account/password">
                                             <li className={cx('header-manage-item')}>Đổi mật khẩu</li>
                                         </Link>
                                         <Link onClick={handleLogout}>
