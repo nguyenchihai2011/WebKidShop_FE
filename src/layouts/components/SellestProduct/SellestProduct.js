@@ -35,6 +35,7 @@ function SellestProduct(props) {
                 return (
                     <SellProduct
                         key={product._id}
+                        to={`category/product/${product.name}`}
                         src={product.productPic}
                         title={product.name}
                         oldPrice={product.price}

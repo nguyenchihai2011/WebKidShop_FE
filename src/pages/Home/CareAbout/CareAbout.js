@@ -63,6 +63,7 @@ function CareAbout() {
                                 }
                                 discount={setDiscount(product.promotion)}
                                 title={product.name}
+                                to={`category/product/${product.name}`}
                             />
                         </Col>
                     );

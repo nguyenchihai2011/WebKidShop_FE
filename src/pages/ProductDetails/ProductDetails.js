@@ -14,6 +14,8 @@ import { useEffect, useState } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
 import { useAuth } from '../../context/auth';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/cart';
 
 const cx = classNames.bind(styles);
 
@@ -32,6 +34,7 @@ function ProductDetails() {
         quantity: 1,
     });
     const [auth] = useAuth();
+    const navigate = useNavigate();
 
     function limit(c) {
         return this.filter((x, i) => {
@@ -67,6 +70,8 @@ function ProductDetails() {
         });
         return data[0]?.name;
     };
+
+    const [cart] = useCart();
 
     useEffect(() => {
         axios
@@ -127,26 +132,36 @@ function ProductDetails() {
 
     const handleAddToCart = (e) => {
         e.preventDefault();
-        products.forEach((item) => {
-            if (item.name === product.name && item.size === product.size && item.color === product.color) {
-                axios
-                    .post(`http://localhost:8080/api/cart/add/${auth.user._id}`, {
-                        productId: item._id,
-                        quantity: product.quantity,
-                    })
-                    .then((res) => {
-                        setProduct({
-                            name: id,
-                            size: '',
-                            color: '',
-                            quantity: 1,
-                        });
-                        alert('Sản phẩm thêm thành công vào giỏ hàng!');
-                        // window.location.reload();
-                    })
-                    .catch((err) => console.log(err));
-            }
-        });
+        if (product.size === '') {
+            alert('Bạn chưa chọn size!');
+            return;
+        }
+        if (product.color === '') {
+            alert('Bạn chưa chọn màu sắc!');
+            return;
+        }
+        if (typeof auth === 'undefined') navigate('/account/login/');
+        else
+            products.forEach((item) => {
+                if (item.name === product.name && item.size === product.size && item.color === product.color) {
+                    axios
+                        .post(`http://localhost:8080/api/cart/add/${auth.user?._id}`, {
+                            productId: item._id,
+                            quantity: Number(product.quantity),
+                        })
+                        .then((res) => {
+                            setProduct({
+                                name: id,
+                                size: '',
+                                color: '',
+                                quantity: 1,
+                            });
+                            alert('Sản phẩm thêm thành công vào giỏ hàng!');
+                            window.location.reload(Object.entries(cart).length === 0);
+                        })
+                        .catch((err) => console.log(err));
+                }
+            });
     };
 
     return (

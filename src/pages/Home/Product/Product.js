@@ -113,6 +113,7 @@ function Product() {
                                                     }
                                                     discount={setDiscount(product.promotion)}
                                                     title={product.name}
+                                                    to={`category/product/${product.name}`}
                                                 />
                                             </Col>
                                         );
@@ -158,6 +159,7 @@ function Product() {
                                             }
                                             discount={setDiscount(product.promotion)}
                                             title={product.name}
+                                            to={`category/product/${product.name}`}
                                         />
                                     </Col>
                                 );

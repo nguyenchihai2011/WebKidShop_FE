@@ -6,6 +6,8 @@ import axios from 'axios';
 import classNames from 'classnames/bind';
 import styles from './Signup.module.scss';
 import { useState } from 'react';
+import { useAuth } from '../../context/auth';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +20,9 @@ function Register() {
         password: '',
         phone: '',
     });
+
+    const navigate = useNavigate();
+    const [auth, setAuth] = useAuth();
 
     const onChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -38,6 +43,17 @@ function Register() {
                     password: '',
                     phone: '',
                 });
+                axios
+                    .post('http://localhost:8080/api/user/login', { email: user.email, password: user.password })
+                    .then((res) => {
+                        setAuth({ ...auth, user: res.data.user });
+                        localStorage.setItem('auth', JSON.stringify(res.data));
+                        navigate('/');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        alert('Tên tài khoản hoặc mật khẩu không chính xác!');
+                    });
                 setMatchPwd('');
             })
             .catch((err) => {

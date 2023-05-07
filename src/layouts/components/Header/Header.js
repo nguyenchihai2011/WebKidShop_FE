@@ -59,10 +59,11 @@ function Header() {
             ...auth,
             user: null,
         });
-        localStorage.removeItem('auth');
         setCart({});
+        localStorage.removeItem('auth');
         localStorage.removeItem('cart');
-        window.location.reload(true);
+        localStorage.clear();
+        // window.location.reload(true);
         navigate('/');
     };
 
@@ -76,10 +77,15 @@ function Header() {
 
     // Lay thong tin cart
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/cart/${auth.user?._id}`).then((res) => {
-            setCart({ ...cart, cart: res.data });
-            localStorage.setItem('cart', JSON.stringify(res.data));
-        });
+        if (auth.user !== null)
+            axios.get(`http://localhost:8080/api/cart/${auth.user?._id}`).then((res) => {
+                setCart({ ...cart, cart: res.data });
+                localStorage.setItem('cart', JSON.stringify(res.data));
+            });
+        else {
+            setCart({});
+            localStorage.removeItem('cart');
+        }
     }, [auth, cart, setCart]);
 
     return (
@@ -117,11 +123,17 @@ function Header() {
                             </div>
                             <Link to="/cart" className={cx('header-service-cart')}>
                                 <FontAwesomeIcon icon={faCartShopping} />
-                                <span className={cx('header-service-cart-quantity')}>
-                                    {cart.cart?.cartDetails.reduce((total, item) => {
-                                        return total + item.quantity;
-                                    }, 0)}
-                                </span>
+                                {cart.cart?.cartDetails.reduce((total, item) => {
+                                    return total + item.quantity;
+                                }, 0) ? (
+                                    <span className={cx('header-service-cart-quantity')}>
+                                        {cart.cart?.cartDetails.reduce((total, item) => {
+                                            return total + item.quantity;
+                                        }, 0)}
+                                    </span>
+                                ) : (
+                                    <span></span>
+                                )}
                             </Link>
                             {auth.user && (
                                 <div className={cx('header-info')} onClick={handleClickInfo}>

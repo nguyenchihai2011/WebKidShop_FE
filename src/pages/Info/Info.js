@@ -16,7 +16,7 @@ import styles from './Info.module.scss';
 const cx = classNames.bind(styles);
 
 function Info() {
-    const [auth] = useAuth();
+    const [auth, setAuth] = useAuth();
     const [show, setShow] = useState(false);
     const [provinces, setProvinces] = useState([]);
     const [selectedProvince, setSelectedProvince] = useState(0);
@@ -104,7 +104,19 @@ function Info() {
         axios
             .put(`http://localhost:8080/api/user/${auth.user?._id}`, info)
             .then((res) => {
-                alert('Cập nhật thông tin thành công! Thông tin của bạn sẽ thay đổi cho lần đăng nhập sau!');
+                // alert('Cập nhật thông tin thành công! Thông tin của bạn sẽ thay đổi cho lần đăng nhập sau!');
+                var infoUpdate = {
+                    _id: auth.user._id,
+                    firstName: info.firstName,
+                    lastName: info.lastName,
+                    email: auth.user.lastName,
+                    password: auth.user.password,
+                    phone: info.phone,
+                };
+
+                setAuth({ ...auth, user: infoUpdate });
+                localStorage.setItem('auth', JSON.stringify(res.data));
+                alert('Cập nhật thông tin thành công!');
             })
             .catch((err) => {
                 console.log(err);

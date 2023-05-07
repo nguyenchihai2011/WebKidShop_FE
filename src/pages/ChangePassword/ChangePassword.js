@@ -23,6 +23,11 @@ function ChangePassword() {
     const handleEditInfo = (e) => {
         e.preventDefault();
 
+        if (password !== confirmPassword) {
+            alert('Mật khẩu xác nhận chưa chính xác!');
+            return;
+        }
+
         const isMatch = bcrypt.compareSync(curPassword, auth.user.password); // true
 
         if (!isMatch) {
@@ -30,10 +35,6 @@ function ChangePassword() {
             return;
         }
 
-        if (password !== confirmPassword) {
-            alert('Mật khẩu xác nhận chưa chính xác!');
-            return;
-        }
         axios
             .put(`http://localhost:8080/api/user/${auth.user._id}`, {
                 password,
@@ -42,7 +43,7 @@ function ChangePassword() {
                 setCurPassword('');
                 setPassword('');
                 setConfirmPassword('');
-                // navigate('/');
+                navigate('/');
             })
             .catch((err) => {
                 console.log('Error in staffmanage!');
@@ -68,7 +69,7 @@ function ChangePassword() {
                     </Row>
                     <Row className={cx('info-row')}>
                         <Col>
-                            <p className={cx('info-lable')}>Current password</p>
+                            <p className={cx('info-lable')}>Mật khẩu hiện tại</p>
                             <input
                                 className={cx('info-input')}
                                 type="password"
@@ -80,7 +81,7 @@ function ChangePassword() {
                     </Row>
                     <Row className={cx('info-row')}>
                         <Col>
-                            <p className={cx('info-lable')}>New password</p>
+                            <p className={cx('info-lable')}>Mật khẩu mới</p>
                             <input
                                 className={cx('info-input')}
                                 type="password"
@@ -92,7 +93,7 @@ function ChangePassword() {
                     </Row>
                     <Row className={cx('info-row')}>
                         <Col>
-                            <p className={cx('info-lable')}>Confirm new password</p>
+                            <p className={cx('info-lable')}>Xác nhận mật khẩu mới</p>
                             <input
                                 className={cx('info-input')}
                                 type="password"

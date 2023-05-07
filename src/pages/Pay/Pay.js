@@ -85,6 +85,11 @@ function Pay() {
             }),
         });
 
+        if (order.address === '') {
+            alert('Bạn chưa chọn địa chỉ nhận hàng!');
+            return;
+        }
+
         if (order.paymentType === '') {
             alert('Bạn chưa chọn phương thức thanh toán!');
         } else if (order.paymentType === 'COD') {
@@ -129,7 +134,6 @@ function Pay() {
             .then((res) => {
                 alert('Thanh toán thành công!');
                 setCart({});
-                localStorage.removeItem('cart');
                 navigate('/');
             })
             .catch((err) => console.log(err));
