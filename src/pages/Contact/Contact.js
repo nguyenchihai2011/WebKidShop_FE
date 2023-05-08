@@ -1,5 +1,4 @@
 import Row from 'react-bootstrap/esm/Row';
-
 import classNames from 'classnames/bind';
 import styles from './Contact.module.scss';
 

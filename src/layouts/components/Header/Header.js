@@ -18,6 +18,9 @@ import axios from 'axios';
 
 import styles from './Header.module.scss';
 
+import Dictaphone from '../../Dictaphone/Dictaphone';
+import { useSpeechRecognition } from 'react-speech-recognition';
+
 const cx = classNames.bind(styles);
 
 function Header() {
@@ -30,6 +33,7 @@ function Header() {
     const refInputSearch = useRef();
     const refUserManage = useRef();
     const [showInputSearch, setShowInputSearch] = useState(false);
+    const { transcript } = useSpeechRecognition();
 
     const handleClickMenu = () => {
         if (window.screen.width < 992) refHeaderNavMenu.current.classList.toggle(cx('hideOrShow'));
@@ -88,6 +92,12 @@ function Header() {
         }
     }, [auth, cart, setCart]);
 
+    useEffect(() => {
+        if (transcript) {
+            setSearchValue(transcript);
+        }
+    }, [transcript]);
+
     return (
         <div className={cx('header')}>
             <Container>
@@ -114,6 +124,10 @@ function Header() {
                                     placeholder="Tìm kiếm"
                                     onChange={handleSearch}
                                 />
+
+                                <button className={cx('header-search-microphone')}>
+                                    <Dictaphone />
+                                </button>
                                 <Link
                                     to={`/api/product/search?search=${searchValue}`}
                                     className={cx('header-search-icon')}
