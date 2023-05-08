@@ -134,7 +134,7 @@ function Info() {
         axios
             .put(`http://localhost:8080/api/user/${auth.user?._id}`, info)
             .then((res) => {
-                // alert('Cập nhật thông tin thành công! Thông tin của bạn sẽ thay đổi cho lần đăng nhập sau!!');
+                // alert('Cập nhật thông tin thành công! Thông tin của bạn sẽ thay đổi cho lần đăng nhập sau!!!');
                 var infoUpdate = {
                     _id: auth.user._id,
                     firstName: info.firstName,
