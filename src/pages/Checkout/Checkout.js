@@ -14,8 +14,8 @@ function Checkout() {
     const [auth] = useAuth();
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/checkout/${auth.user?._id}`).then((res) => {
-            setOrders(res.data.orders);
+        axios.get(`http://localhost:8080/api/checkout/user/${auth.user?._id}`).then((res) => {
+            setOrders(res.data.orders.reverse());
         });
     }, [auth]);
 

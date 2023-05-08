@@ -84,6 +84,23 @@ function Info() {
 
     const handleSave = (e) => {
         e.preventDefault();
+
+        if (address.province === '') {
+            alert('Bạn chưa chọn tỉnh thành!');
+            return;
+        }
+        if (address.district === '') {
+            alert('Bạn chưa chọn quận/huyện!');
+            return;
+        }
+        if (address.ward === '') {
+            alert('Bạn chưa chọn xã/phường!');
+            return;
+        }
+        if (street === '') {
+            alert('Bạn chưa nhập địa chỉ nhà!');
+            return;
+        }
         const position = `${street} - ${address.ward} - ${address.district} - ${address.province}`;
         axios
             .post(`http://localhost:8080/api/address/${auth.user._id}/create`, { address: position })
@@ -101,6 +118,19 @@ function Info() {
 
     const handleEditInfo = (e) => {
         e.preventDefault();
+
+        if (info.firstName === '') {
+            alert('Bạn chưa nhập họ!');
+            return;
+        }
+        if (info.lastName === '') {
+            alert('Bạn chưa nhập tên!');
+            return;
+        }
+        if (info.phone === '') {
+            alert('Bạn chưa nhập số điện thoại!');
+            return;
+        }
         axios
             .put(`http://localhost:8080/api/user/${auth.user?._id}`, info)
             .then((res) => {
