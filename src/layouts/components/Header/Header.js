@@ -238,6 +238,13 @@ function Header() {
                                             </Link>
                                         );
                                     })}
+                                    <Link
+                                        to={`/category/productpromotion`}
+                                        className={cx('product-type')}
+                                        onClick={handleClickMenu}
+                                    >
+                                        Khuyến mãi
+                                    </Link>
 
                                     <>
                                         {window.screen.width > 992 && (

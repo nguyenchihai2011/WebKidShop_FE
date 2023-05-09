@@ -23,6 +23,11 @@ function ChangePassword() {
     const handleEditInfo = (e) => {
         e.preventDefault();
 
+        if (password === '') {
+            alert('Bạn chưa nhập mật khẩu mới!');
+            return;
+        }
+
         if (password !== confirmPassword) {
             alert('Mật khẩu xác nhận chưa chính xác!');
             return;
@@ -40,13 +45,14 @@ function ChangePassword() {
                 password,
             })
             .then((res) => {
+                alert('Đổi mật khẩu thành công!');
                 setCurPassword('');
                 setPassword('');
                 setConfirmPassword('');
                 navigate('/');
             })
             .catch((err) => {
-                console.log('Error in staffmanage!');
+                console.log('Error in user!');
             });
     };
 

@@ -14,6 +14,7 @@ import Search from '../pages/Search/Search';
 import Info from '../pages/Info/Info';
 import Checkout from '../pages/Checkout/Checkout';
 import ChangePassword from '../pages/ChangePassword/ChangePassword';
+import ProductPromotion from '../pages/Product/ProductPromotion/ProductPromotion';
 
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import OnlyHeader from '../layouts/OnlyHeader/OnlyHeader';
@@ -27,6 +28,7 @@ const publicRoutes = [
     { path: '/api/product/search', component: Search, layout: MainLayout, page: 'Tìm kiếm' },
     { path: '/category/', component: ProductList, layout: MainLayout },
     { path: '/category/:id', component: ProductOfCategory, layout: MainLayout },
+    { path: '/category/productpromotion', component: ProductPromotion, layout: MainLayout },
     { path: '/category/product/:id', component: ProductDetails, layout: OnlyHeader },
     { path: '/category/:id/product/:id', component: ProductDetails, layout: OnlyHeader },
     { path: 'api/product/search/product/:id', component: ProductDetails, layout: OnlyHeader },

@@ -32,6 +32,10 @@ function Nav() {
                         </Link>
                     );
                 })}
+                <Link to="/category/productpromotion" className={cx('category-item')}>
+                    <FontAwesomeIcon className={cx('category-item-icon')} icon={faCircleRight} />
+                    Khuyến mãi
+                </Link>
                 <img
                     className={cx('category-img')}
                     src="https://bizweb.dktcdn.net/100/117/632/themes/157694/assets/bg-cate.jpg"

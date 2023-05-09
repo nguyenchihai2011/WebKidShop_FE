@@ -105,6 +105,7 @@ function Info() {
         axios
             .post(`http://localhost:8080/api/address/${auth.user._id}/create`, { address: position })
             .then((res) => {
+                alert('Thêm địa chỉ thành công!');
                 setAddress({
                     province: '',
                     district: '',
