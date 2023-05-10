@@ -140,7 +140,8 @@ function ProductDetails() {
             alert('Bạn chưa chọn màu sắc!');
             return;
         }
-        if (typeof auth === 'undefined') navigate('/account/login/');
+
+        if (auth.user === 'undefined') navigate('/account/login/');
         else
             products.forEach((item) => {
                 if (item.name === product.name && item.size === product.size && item.color === product.color) {
@@ -159,7 +160,7 @@ function ProductDetails() {
                             alert('Sản phẩm thêm thành công vào giỏ hàng!');
                             window.location.reload(Object.entries(cart).length === 0);
                         })
-                        .catch((err) => console.log(err));
+                        .catch((err) => navigate('/account/login'));
                 }
             });
     };
@@ -186,9 +187,8 @@ function ProductDetails() {
                 <Col>
                     <h1 className={cx('productdetails-name')}>{products && products[0]?.name}</h1>
                     <p>
-                        Giá gốc:{' '}
+                        Giá:{' '}
                         <span className={cx('productdetails-price')}>{VND.format(products && products[0]?.price)}</span>
-                        <span>(chưa bao gồm giảm giá)</span>
                     </p>
 
                     <div className={cx('productdetails-btn')}>Còn hàng</div>
